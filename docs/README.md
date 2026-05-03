@@ -1,24 +1,23 @@
-﻿# PathMatch Stitch Export
+# PathMatch Live Static App
 
-Pulled from Google Stitch project `projects/3730425909653906707`.
+This folder is the backend-free version prepared for static deployment.
 
-## Contents
+## What Works
 
-- `index.html`: local screen browser with preview iframe.
-- `screens/`: exported standalone HTML files from Stitch.
-- `screenshots/`: exported screen thumbnails/screenshots.
-- `metadata.json`: project and screen source metadata.
+- Hash-based routing for static hosts.
+- Register and login flows.
+- Student dashboard, smart matches, applications, roadmap, messages, and profile.
+- Company dashboard with local job posting management.
+- Apply, save, withdraw, message, profile edit, roadmap completion, and demo reset actions.
+- Data persistence through `localStorage`.
 
-## Open Locally
+## Demo Accounts
 
-Open `index.html` in a browser. The exported screens use external Tailwind CDN and Google Fonts, so an internet connection is useful for exact rendering.
+- Student: `demo@pathmatch.app` / `demo123`
+- Company: `company@pathmatch.app` / `demo123`
 
-## Development Notes
+## Deploy
 
-These files are the raw Stitch export. The next practical step is to turn the screens into a maintainable app structure, for example a Vite/React project with shared layout, routes, components, and design tokens.
-## Live Static App
+Deploy the `live` folder as a static site. No build step is required.
 
-The deploy-ready frontend-only app is in `live/`.
-
-Open `live/index.html` for the active version. It includes routing, demo auth, applications, roadmap, messaging, profile edits, and company job management with `localStorage` persistence.
-
+Important: this version has no server database. User data is stored in the visitor's browser only.

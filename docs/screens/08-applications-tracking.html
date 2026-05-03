@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Başvurular - PathMatch</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#fcf8fa",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "primary-container": "#131b2e",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#45464d",
+                        "primary": "#000000",
+                        "surface-dim": "#dcd9db",
+                        "secondary-fixed": "#acedff",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "surface": "#fcf8fa",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-tertiary-container": "#9466ff",
+                        "surface-container": "#f0edef",
+                        "surface-container-low": "#f6f3f5",
+                        "surface-container-high": "#eae7e9",
+                        "surface-tint": "#565e74",
+                        "on-primary-fixed": "#131b2e",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-surface": "#303032",
+                        "outline": "#76777d",
+                        "background": "#fcf8fa",
+                        "tertiary-container": "#23005c",
+                        "on-background": "#1b1b1d",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#57dffe",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f3f0f2",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#006172",
+                        "on-tertiary-fixed": "#23005c",
+                        "error-container": "#ffdad6",
+                        "secondary": "#00687a",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "surface-variant": "#e4e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "button": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "label-bold": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "button": ["16px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-bold": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .soft-shadow {
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+        }
+        /* Hide scrollbar for kanban board */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r border-surface-variant sticky top-0 bg-surface-container-lowest/50 backdrop-blur-lg">
+<div class="flex flex-col h-full p-4 space-y-2">
+<!-- Header -->
+<div class="px-4 py-xl flex items-center space-x-3 mb-lg">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary font-h3 font-bold">P</div>
+<div>
+<h1 class="text-xl font-black tracking-tighter text-on-surface font-h3">PathMatch</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kariyer Asistanı</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 space-y-sm">
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md font-medium">Panel</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-body-md text-body-md font-medium">Eşleşmeler</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-surface-container-lowest text-secondary shadow-sm border border-surface-variant/50 focus:ring-2 focus:ring-secondary/20" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-body-md text-body-md font-medium">Başvurular</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-body-md text-body-md font-medium">Yol Haritası</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md font-medium">Ayarlar</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="px-4 py-md mb-md">
+
+</div>
+<!-- Footer Links -->
+<div class="border-t border-surface-variant/50 pt-sm mt-auto">
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body-md text-body-md font-medium">Yardım</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body-md text-body-md font-medium">Çıkış</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Top App Bar (Mobile) -->
+<header class="md:hidden flex items-center justify-between px-6 py-4 bg-surface-container-lowest/80 backdrop-blur-md border-b border-surface-variant/60 sticky top-0 z-50">
+<h1 class="font-h3 text-h3 text-on-surface">Başvurular</h1>
+<button class="text-on-surface"><span class="material-symbols-outlined">menu</span></button>
+</header>
+<!-- Page Header -->
+<div class="px-xl pt-xl pb-md flex justify-between items-end flex-shrink-0">
+<div>
+<h2 class="font-h2 text-h2 text-on-surface mb-xs">Başvuru Takibi</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Tüm kariyer yolculuğunuzu tek bir yerden yönetin.</p>
+</div>
+<div class="hidden sm:flex space-x-sm">
+<button class="px-md py-sm bg-surface-container-lowest border border-outline-variant rounded-lg font-button text-button text-on-surface flex items-center space-x-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span>Filtrele</span>
+</button>
+<button class="px-md py-sm bg-primary text-on-primary rounded-lg font-button text-button hover:bg-primary/90 transition-colors flex items-center space-x-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Yeni Ekle</span>
+</button>
+</div>
+</div>
+<!-- Kanban Board -->
+<div class="flex-1 overflow-x-auto overflow-y-hidden no-scrollbar pb-xl px-xl">
+<div class="flex space-x-lg h-full items-start min-w-max">
+<!-- Column: Kaydedilenler -->
+<div class="w-80 flex flex-col max-h-full">
+<div class="flex items-center justify-between mb-md px-1">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-wider">Kaydedilenler <span class="ml-2 text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full text-[10px]">2</span></h3>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-md no-scrollbar pb-4 pr-1">
+<!-- Card -->
+<div class="glass-panel rounded-lg p-lg soft-shadow cursor-pointer hover:border-secondary transition-colors group">
+<div class="flex justify-between items-start mb-sm">
+<img class="w-10 h-10 rounded-md object-cover" data-alt="A clean, modern logo of a tech company on a bright, minimalist background. The design is crisp and professional, using a soft, light-mode palette of whites and subtle grays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU3-_PoVrizeYMAsLcBBy7V0XBa5TaqKX4sQlAeqGDyFWl74d8FPeaj1EOuQKBMBquHVX_HYGa_0R2TJkpZZJGik8BtBMSbmV0O5eXUIJE826px6aOPs6x2VuGZtC2U_UcXXnYUqWI8oBfJTsY8xHqWI1R-YVTWL0SaONVBXrxQS8Nlc1qTMUu3w9MLvN2qKG3spN2MxPO0ysOgRmzNPv_s2bpP2GIibck15rl3LaDb5y1Xdsdl3NbO5m6aAJooR-DdVPQ8BVo9ks"/>
+<div class="flex items-center space-x-1 bg-surface-container-low px-2 py-1 rounded-full">
+<span class="text-[10px] font-semibold text-secondary">85%</span>
+<svg class="w-3 h-3 text-secondary" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+</div>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-1 group-hover:text-secondary transition-colors">Frontend Geliştirici</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">TechFlow A.Ş. • İstanbul</p>
+<div class="flex items-center justify-between border-t border-surface-variant/50 pt-3">
+<span class="font-label-bold text-[10px] text-on-surface-variant">12 Eki eklendi</span>
+<div class="px-2 py-1 rounded text-[10px] font-semibold bg-tertiary-fixed-dim/20 text-tertiary-container">Beklemede</div>
+</div>
+</div>
+<!-- Card -->
+<div class="glass-panel rounded-lg p-lg soft-shadow cursor-pointer hover:border-secondary transition-colors group">
+<div class="flex justify-between items-start mb-sm">
+<div class="w-10 h-10 rounded-md bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-lg">N</div>
+<div class="flex items-center space-x-1 bg-surface-container-low px-2 py-1 rounded-full">
+<span class="text-[10px] font-semibold text-secondary">78%</span>
+</div>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-1 group-hover:text-secondary transition-colors">UI/UX Tasarımcı</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Nexus Studios • Uzaktan</p>
+<div class="flex items-center justify-between border-t border-surface-variant/50 pt-3">
+<span class="font-label-bold text-[10px] text-on-surface-variant">14 Eki eklendi</span>
+<div class="px-2 py-1 rounded text-[10px] font-semibold bg-tertiary-fixed-dim/20 text-tertiary-container">Beklemede</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Başvuruldu -->
+<div class="w-80 flex flex-col max-h-full">
+<div class="flex items-center justify-between mb-md px-1">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-wider">Başvuruldu <span class="ml-2 text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full text-[10px]">1</span></h3>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-md no-scrollbar pb-4 pr-1">
+<!-- Card -->
+<div class="glass-panel rounded-lg p-lg soft-shadow cursor-pointer hover:border-secondary transition-colors group">
+<div class="flex justify-between items-start mb-sm">
+<img class="w-10 h-10 rounded-md object-cover" data-alt="A sleek, abstract corporate logo graphic in a light, minimalist setting. The visual language conveys trust and modern professionalism, utilizing cool gray tones and soft white lighting typical of high-end corporate identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoK4xd8eRCrb902w7LzX-LLnT2ydwYhNhiwty012kwa8nqYMhCqnck7h1J2zphMRroSXLmYm5Azp1trqIhUfGci5z4tXbcra5wMfK0mojP8pGh-A584tf-TO16lx9xL_-Sz6bwj6Djnv__nipVSUzFBbdjaLf6i4yqY20mNhL1aU1bcqAz9hpEUNYwfihCvcCbWSZL-DyANrTEG_H7obDbwyOLJMi0N41i4yI_eeOnEordJB-VB9bY_VsE9vooRbNP3jF8DBaOAmQ"/>
+<div class="flex items-center space-x-1 bg-surface-container-low px-2 py-1 rounded-full border border-secondary/20">
+<span class="text-[10px] font-semibold text-secondary">92%</span>
+</div>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-1 group-hover:text-secondary transition-colors">Veri Bilimci (Staj)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">FinTech Global • Ankara</p>
+<div class="flex items-center justify-between border-t border-surface-variant/50 pt-3">
+<span class="font-label-bold text-[10px] text-on-surface-variant">15 Eki</span>
+<div class="px-2 py-1 rounded text-[10px] font-semibold bg-secondary-fixed/30 text-on-secondary-fixed-variant">İletildi</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: İnceleniyor -->
+<div class="w-80 flex flex-col max-h-full">
+<div class="flex items-center justify-between mb-md px-1">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-wider">İnceleniyor <span class="ml-2 text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full text-[10px]">1</span></h3>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-md no-scrollbar pb-4 pr-1">
+<!-- Card -->
+<div class="glass-panel rounded-lg p-lg soft-shadow cursor-pointer hover:border-secondary transition-colors group ring-1 ring-secondary/20">
+<div class="flex justify-between items-start mb-sm">
+<div class="w-10 h-10 rounded-md bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-lg">C</div>
+<div class="flex items-center space-x-1 bg-surface-container-low px-2 py-1 rounded-full">
+<span class="text-[10px] font-semibold text-secondary">88%</span>
+</div>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-1 group-hover:text-secondary transition-colors">Ürün Yöneticisi</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">CloudSync • Uzaktan</p>
+<div class="flex items-center justify-between border-t border-surface-variant/50 pt-3">
+<span class="font-label-bold text-[10px] text-on-surface-variant">Son günc. 2 gün önce</span>
+<div class="px-2 py-1 rounded text-[10px] font-semibold bg-blue-100 text-blue-700">Değerlendirmede</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Mülakat -->
+<div class="w-80 flex flex-col max-h-full">
+<div class="flex items-center justify-between mb-md px-1">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-wider">Mülakat <span class="ml-2 text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full text-[10px]">0</span></h3>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar pb-4 pr-1 flex flex-col items-center justify-center border-2 border-dashed border-surface-variant/50 rounded-lg bg-surface-container-low/30 h-32">
+<span class="material-symbols-outlined text-outline-variant mb-2">event_busy</span>
+<p class="font-body-sm text-body-sm text-outline-variant">Mülakat aşamasında başvuru yok</p>
+</div>
+</div>
+<!-- Column: Teklif -->
+<div class="w-80 flex flex-col max-h-full">
+<div class="flex items-center justify-between mb-md px-1">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-wider">Teklif <span class="ml-2 text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full text-[10px]">1</span></h3>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-md no-scrollbar pb-4 pr-1">
+<!-- Card -->
+<div class="glass-panel rounded-lg p-lg soft-shadow cursor-pointer hover:border-secondary transition-colors group relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<div class="flex justify-between items-start mb-sm">
+<img class="w-10 h-10 rounded-md object-cover" data-alt="A premium corporate brand mark displayed on a bright white surface. The lighting is soft and even, creating a minimalist, airy, light-mode feel. The overall mood is successful and forward-thinking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8LSg2focJ0QZ8NChF08RvLHFhendYIPS4ygBDZfVC76cmuGhnZkDC2FRgguDoFJbQCFzAdVY2QzlzyYXkqn_hcfJbhv9EtGH38uT3ff6GwJ_3WK292IEnbGAf_1X_QaNb8Fl5DFmNt4IdkaTSBR7nJQCGIjueaW0570wZ6r8mcgQfJtU7pQP1zBR8_2rwmWwmxYc09hCzlpmoqyK8WNNgemH-56Duuxhi0_-fV-hgD3zoiVfFfcx729yEnn-UPxo2OoECjJr557U"/>
+<div class="flex items-center space-x-1 bg-secondary-container px-2 py-1 rounded-full">
+<span class="text-[10px] font-semibold text-on-secondary-container">95%</span>
+</div>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-1 group-hover:text-secondary transition-colors">Kıdemli Backend Geliştirici</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Innovate Inc. • İstanbul</p>
+<div class="flex items-center justify-between border-t border-surface-variant/50 pt-3">
+<span class="font-label-bold text-[10px] text-on-surface-variant">Son yanıt tarihi: 24 Eki</span>
+<div class="px-2 py-1 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-700">Teklif Alındı</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Reddedildi -->
+<div class="w-80 flex flex-col max-h-full">
+<div class="flex items-center justify-between mb-md px-1">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-wider">Reddedildi <span class="ml-2 text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full text-[10px]">1</span></h3>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">more_horiz</span></button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-md no-scrollbar pb-4 pr-1 opacity-75">
+<!-- Card -->
+<div class="glass-panel rounded-lg p-lg soft-shadow cursor-pointer hover:border-surface-variant transition-colors group bg-surface-container-low">
+<div class="flex justify-between items-start mb-sm">
+<div class="w-10 h-10 rounded-md bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-lg">A</div>
+<div class="flex items-center space-x-1 bg-surface-container px-2 py-1 rounded-full grayscale">
+<span class="text-[10px] font-semibold text-on-surface-variant">65%</span>
+</div>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-1">React Geliştirici</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Alpha Corp • Uzaktan</p>
+<div class="flex items-center justify-between border-t border-surface-variant/50 pt-3">
+<span class="font-label-bold text-[10px] text-on-surface-variant">05 Eki</span>
+<div class="px-2 py-1 rounded text-[10px] font-semibold bg-error-container text-on-error-container">Olumsuz</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation (Visible only on mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface-container-lowest/90 backdrop-blur-md border-t border-surface-variant z-50 pb-safe">
+<div class="flex justify-around items-center h-16">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="text-[10px] font-medium">Panel</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-secondary" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="text-[10px] font-medium">Başvurular</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1">map</span>
+<span class="text-[10px] font-medium">Yol</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="text-[10px] font-medium">Profil</span>
+</a>
+</div>
+</nav>
+<script src="../pathmatch-live.js"></script>
+</body></html>
+
+
+

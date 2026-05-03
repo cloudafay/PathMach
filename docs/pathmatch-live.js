@@ -110,30 +110,27 @@
   function currentFile() {
     const path = window.location.pathname.replace(/\\/g, "/");
     const filename = path.split("/").pop() || "index.html";
-    if (filename === "" || filename === "docs") return "index.html";
+    if (filename === "" || !filename.includes(".")) return "index.html";
     return filename;
   }
 
-  function isDocsRoot() {
-    const path = window.location.pathname.replace(/\\/g, "/");
-    return path.endsWith("/docs/") || path.endsWith("/docs/index.html") || path.endsWith("/docs");
+  function isScreenPage() {
+    return window.location.pathname.replace(/\\/g, "/").includes("/screens/");
   }
 
-  function isDocsScreen() {
-    return window.location.pathname.replace(/\\/g, "/").includes("/docs/screens/");
+  function isRootPage() {
+    return !isScreenPage();
   }
 
   function pageUrl(page) {
     if (page === "landing") {
-      if (isDocsScreen()) return "../index.html";
+      if (isScreenPage()) return "../index.html";
       return "index.html";
     }
 
     const file = pages[page] || pages.dashboard;
-    if (isDocsRoot()) return `screens/${file}`;
-    if (isDocsScreen()) return file;
-    if (window.location.pathname.replace(/\\/g, "/").includes("/stitch-pathmatch/live/")) return `../screens/${file}`;
-    if (window.location.pathname.replace(/\\/g, "/").includes("/stitch-pathmatch/screens/")) return file;
+    if (isRootPage()) return `screens/${file}`;
+    if (isScreenPage()) return file;
     return `screens/${file}`;
   }
 

@@ -485,48 +485,62 @@ function renderAuth(mode) {
   return appShell(content);
 }
 
-function renderDashboard() {
-  return protectedLayout((user) => {
-    if (user.role === "company") return renderCompanyInner(user);
-    const applications = userApplications();
-    const completed = state.completedRoadmap.length;
-    const best = opportunities[0];
-    return `
-      <div class="page-head">
-        <div>
-          <h2>Merhaba, ${user.name}</h2>
-          <p>Bugünkü önerilerin ve aktif başvuruların hazır.</p>
-        </div>
-        <a class="btn btn-primary" href="#/matches">${icon("travel_explore")}Yeni eşleşme bul</a>
-      </div>
-      <div class="grid grid-3">
-        <div class="card stat-card">${icon("monitoring")}<strong>${applications.length}</strong><span>Aktif başvuru</span></div>
-        <div class="card stat-card">${icon("verified")}<strong>${best.match}%</strong><span>En yüksek eşleşme</span></div>
-        <div class="card stat-card">${icon("route")}<strong>${completed}/${roadmap.length}</strong><span>Yol haritası ilerlemesi</span></div>
-      </div>
-      <section class="section">
-        <div class="section-head">
-          <div><h2>Önerilen fırsatlar</h2><p>Profilindeki yeteneklere göre sıralandı.</p></div>
-          <a class="btn btn-ghost btn-small" href="#/matches">${icon("arrow_forward")}Tüm eşleşmeler</a>
-        </div>
-        <div class="grid">
-          ${opportunities.slice(0, 3).map(opportunityCard).join("")}
-        </div>
-      </section>
-      <section class="section">
-        <div class="section-head">
-          <div><h2>Sıradaki adımlar</h2><p>Bu hafta tamamlanması önerilen görevler.</p></div>
-          <a class="btn btn-secondary btn-small" href="#/roadmap">${icon("route")}Yol haritası</a>
-        </div>
-        <div class="grid">
-          ${roadmap.slice(0, 3).map(roadmapRow).join("")}
-        </div>
-      </section>
-    `;
-  });
-}
 
-function opportunityCard(item, compact = false) {
+  function renderDashboard() {
+    return protectedLayout((user) => {
+      if (user.role === "company") return renderCompanyInner(user);
+      const applications = userApplications();
+      const completed = state.completedRoadmap.length;
+      const best = opportunities[0];
+      return `
+        <div class="mb-lg">
+          <h2 class="font-h2 text-h2 text-on-surface tracking-tight">Merhaba, ${user.name} 👋</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-2">Bugünkü kariyer özetin ve sana özel fırsatlar.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+            <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 hover:border-secondary-fixed/50 transition-colors">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-full bg-secondary-fixed/20 flex items-center justify-center text-on-secondary-container">
+                        <span class="material-symbols-outlined">assignment</span>
+                    </div>
+                    <span class="font-label-bold text-on-surface-variant">Aktif Başvuru</span>
+                </div>
+                <div class="text-3xl font-h2 text-on-surface">${applications.length}</div>
+            </div>
+            <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 hover:border-secondary-fixed/50 transition-colors">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-full bg-tertiary-fixed/20 flex items-center justify-center text-on-tertiary-container">
+                        <span class="material-symbols-outlined">stars</span>
+                    </div>
+                    <span class="font-label-bold text-on-surface-variant">En Yüksek Eşleşme</span>
+                </div>
+                <div class="text-3xl font-h2 text-on-surface">${best.match}%</div>
+            </div>
+            <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 hover:border-secondary-fixed/50 transition-colors">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-full bg-primary-fixed/20 flex items-center justify-center text-on-primary-fixed-variant">
+                        <span class="material-symbols-outlined">trending_up</span>
+                    </div>
+                    <span class="font-label-bold text-on-surface-variant">Yol Haritası</span>
+                </div>
+                <div class="text-3xl font-h2 text-on-surface">${completed}/${roadmap.length}</div>
+            </div>
+        </div>
+        
+        <div class="flex justify-between items-end mb-md">
+            <div>
+                <h3 class="font-h3 text-xl text-on-surface">Senin için Eşleşen Fırsatlar</h3>
+            </div>
+            <a href="#/matches" class="text-secondary font-button text-sm hover:underline">Tümünü Gör</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md mb-xl">
+            ${opportunities.slice(0, 3).map(item => opportunityCard(item)).join('')}
+        </div>
+      `;
+    });
+  }
+
+  function opportunityCard(item, compact = false) {
   const applied = hasApplied(item.id);
   const saved = state.saved.includes(item.id);
   return `
@@ -564,34 +578,54 @@ function filteredOpportunities() {
   });
 }
 
-function renderMatches() {
-  const user = currentUser();
-  const filtered = filteredOpportunities();
 
-  const content = `
-    <div class="page-head">
-      <div>
-        <h2>${user?.role === "company" ? "Aday havuzu" : "Akıllı eşleşmeler"}</h2>
-        <p>${user?.role === "company" ? "İlan tiplerine göre aday sinyallerini takip et." : "Filtreleri değiştir, fırsatları kaydet veya başvur."}</p>
-      </div>
-      ${user ? `<a class="btn btn-primary" href="#/${user.role === "company" ? "company" : "applications"}">${icon("assignment")}Takip ekranı</a>` : `<a class="btn btn-primary" href="#/register">${icon("person_add")}Başlamak için kayıt ol</a>`}
-    </div>
-    <section class="section">
-      <div class="filters">
-        <div class="field"><label>Arama</label><input data-input="query" value="${escapeAttr(ui.query)}" placeholder="Pozisyon, şirket veya yetenek" /></div>
-        <div class="field"><label>Tip</label><select data-input="type">${selectOptions(["all", "Staj", "Trainee", "Part-time"], ui.type, ["Tümü", "Staj", "Trainee", "Part-time"])}</select></div>
-        <div class="field"><label>Departman</label><select data-input="department">${selectOptions(["all", "Yazılım", "Tasarım", "Veri", "Pazarlama"], ui.department, ["Tümü", "Yazılım", "Tasarım", "Veri", "Pazarlama"])}</select></div>
-      </div>
-    </section>
-    <div class="grid" id="matches-results">
-      ${filtered.length ? filtered.map(opportunityCard).join("") : empty("search_off", "Sonuç bulunamadı", "Filtreleri değiştirip tekrar dene.")}
-    </div>
-  `;
+  function renderMatches() {
+    return protectedLayout((user) => {
+      const items = filteredOpportunities();
+      return `
+        <div class="mb-lg">
+            <h2 class="font-h2 text-h2 text-on-surface tracking-tight">Cepte Fırsatlar</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-2">Profili ve yeteneklerine en uygun kariyer eşleşmeleri.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-xl">
+            <aside class="flex flex-col gap-md">
+                <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30">
+                    <h3 class="font-h3 text-on-surface mb-sm">Filtreler</h3>
+                    <form id="filters-form" data-form="filters" class="space-y-sm">
+                        <div>
+                            <label class="block font-label-bold text-on-surface-variant mb-1">Arama</label>
+                            <input name="search" placeholder="Pozisyon, şirket veya kelime..." value="${state.filters.search}" class="w-full rounded-lg border-outline-variant/50 focus:border-secondary focus:ring-secondary/20 font-body-sm bg-surface-bright placeholder:text-on-surface-variant/50"/>
+                        </div>
+                        <div>
+                            <label class="block font-label-bold text-on-surface-variant mb-1">Tür</label>
+                            <select name="type" class="w-full rounded-lg border-outline-variant/50 focus:border-secondary focus:ring-secondary/20 font-body-sm bg-surface-bright">
+                                ${selectOptions(["Hepsi", "Staj", "Trainee", "Yeni Mezun"], state.filters.type)}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-label-bold text-on-surface-variant mb-1">Departman</label>
+                            <select name="department" class="w-full rounded-lg border-outline-variant/50 focus:border-secondary focus:ring-secondary/20 font-body-sm bg-surface-bright">
+                                ${selectOptions(["Hepsi", "Yazılım", "Tasarım", "Veri", "Pazarlama"], state.filters.department)}
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+            <div class="lg:col-span-3">
+                <div class="flex justify-between items-center mb-md">
+                    <span class="font-label-bold text-on-surface-variant">${items.length} Fırsat Bulundu</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-md" id="matches-results">
+                    ${items.map(i => opportunityCard(i)).join('')}
+                </div>
+            </div>
+        </div>
+      `;
+    });
+  }
 
-  return user ? protectedLayout(() => content) : appShell(`<main class="page content">${content}</main>`);
-}
-
-function selectOptions(values, selected, labels = values) {
+  function selectOptions(values, selected, labels = values) {
   return values.map((value, index) => `<option value="${value}" ${value === selected ? "selected" : ""}>${labels[index]}</option>`).join("");
 }
 
@@ -634,37 +668,103 @@ function renderApplications() {
   });
 }
 
-function applicationRow(app) {
-  const item = opportunityById(app.opportunityId);
-  if (!item) return "";
-  const doneSteps = app.status === "Görüşme" ? 2 : app.status === "Kabul" ? 4 : 1;
-  return `
-    <article class="card">
-      <div class="section-head">
-        <div>
-          <h3>${item.title}</h3>
-          <p>${item.company} · ${app.date}</p>
-        </div>
-        <span class="tag ${statusClass(app.status)}">${app.status}</span>
-      </div>
-      <div class="application-timeline">
-        ${item.steps.map((step, index) => `
-          <div class="timeline-row">
-            <span class="timeline-dot ${index < doneSteps ? "done" : ""}"></span>
-            <span>${step}</span>
-            <span class="muted">${index < doneSteps ? "Tamamlandı" : "Bekliyor"}</span>
-          </div>
-        `).join("")}
-      </div>
-      <div class="hero-actions">
-        <a class="btn btn-ghost btn-small" href="#/opportunity/${item.id}">${icon("open_in_new")}Detay</a>
-        <button class="btn btn-danger btn-small" data-action="withdraw" data-id="${app.id}">${icon("close")}Geri çek</button>
-      </div>
-    </article>
-  `;
-}
 
-function renderOpportunityDetail(id) {
+  function applicationRow(app) {
+    const opp = opportunityById(app.opportunityId);
+    const steps = opp.steps;
+    const items = steps.map((step, idx) => {
+        const isPast = idx <= app.step;
+        const isCurrent = idx === app.step;
+        return `
+          <div class="flex flex-col items-center">
+              <div class="w-6 h-6 rounded-full ${isCurrent ? 'bg-secondary text-on-secondary shadow-md ring-4 ring-secondary/20' : (isPast ? 'bg-secondary-fixed text-on-secondary-fixed' : 'bg-surface border-2 border-outline-variant/30')} flex items-center justify-center text-xs relative z-10">
+                  ${isPast ? '<span class="material-symbols-outlined text-[14px]">check</span>' : idx + 1}
+              </div>
+              <span class="mt-2 font-label-bold text-xs ${isPast ? 'text-on-surface' : 'text-on-surface-variant'}">${step}</span>
+          </div>
+        `;
+    }).join('');
+
+    return `
+      <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-1 h-full bg-secondary-fixed"></div>
+          <div class="flex justify-between items-start">
+              <div>
+                  <h3 class="font-h3 text-lg text-on-surface">${opp.title}</h3>
+                  <p class="font-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+                      <span class="material-symbols-outlined text-[16px]">business</span> ${opp.company}
+                  </p>
+              </div>
+          </div>
+          <div class="mt-xl relative">
+              <div class="absolute left-0 top-3 w-full h-0.5 bg-outline-variant/30"></div>
+              <div class="absolute left-0 top-3 h-0.5 bg-secondary w-1/2"></div>
+              <div class="relative flex justify-between">
+                  ${items}
+              </div>
+          </div>
+      </div>
+    `;
+  }
+
+  function renderApplications() {
+    return protectedLayout((user) => {
+      const apps = userApplications();
+      return `
+        <div class="mb-lg">
+            <h2 class="font-h2 text-h2 text-on-surface tracking-tight">Başvurularım</h2>
+            <p class="font-body-md text-on-surface-variant mt-2">Tüm süreçlerini ve değerlendirme aşamalarını buradan takip et.</p>
+        </div>
+        <div class="flex gap-2 mb-lg border-b border-outline-variant/30 overflow-x-auto no-scrollbar">
+            <button class="px-md py-sm font-button text-button border-b-2 border-secondary text-secondary whitespace-nowrap">Aktif Süreçler</button>
+            <button class="px-md py-sm font-button text-button border-b-2 border-transparent text-on-surface-variant hover:text-on-surface whitespace-nowrap">Bekleyenler</button>
+            <button class="px-md py-sm font-button text-button border-b-2 border-transparent text-on-surface-variant hover:text-on-surface whitespace-nowrap">Tamamlananlar</button>
+        </div>
+        ${apps.length === 0 ? `
+            <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-xl flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-4xl text-on-surface-variant/50 mb-3">inbox</span>
+              <h3 class="font-h3 text-on-surface mb-2">Henüz Aktif Başvurunuz Yok</h3>
+              <p class="font-body-sm text-on-surface-variant mb-md max-w-sm">Size en uygun pozisyonları bulup hemen sürece dahil olabilirsiniz.</p>
+              <a href="#/matches" class="px-lg py-sm bg-primary text-on-primary rounded-lg font-button text-sm hover:opacity-90 transition-opacity">
+                  Fırsatları Keşfet
+              </a>
+            </div>
+        ` : `
+            <div class="space-y-md">
+                ${apps.map(applicationRow).join('')}
+            </div>
+        `}
+      `;
+    });
+  }
+
+  function renderProfile() {
+    return protectedLayout((user) => {
+      return `
+        <div class="mb-lg">
+            <h2 class="font-h2 text-h2 text-on-surface tracking-tight">Profil & Ayarlar</h2>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+            <div class="lg:col-span-2 space-y-md">
+                <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-md flex items-center gap-xl relative overflow-hidden">
+                    <div class="w-32 h-32 rounded-full overflow-hidden bg-primary-container text-on-primary border-4 border-surface shadow-sm shrink-0 flex items-center justify-center font-h1">
+                        ${initials(user.name)}
+                    </div>
+                    <div class="flex-grow z-10">
+                        <h2 class="font-h2 text-2xl text-on-surface tracking-tight">${user.name}</h2>
+                        <p class="font-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">school</span> ${user.institution || "Öğrenci"}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      `;
+    });
+  }
+
+
+  function renderOpportunityDetail(id) {
   const item = opportunityById(id);
   if (!item) return appShell(`<main class="page">${empty("error", "Fırsat bulunamadı", "Listeye dönüp başka bir fırsat seç.")}</main>`);
 

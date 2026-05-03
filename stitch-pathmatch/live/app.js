@@ -1,6 +1,19 @@
-﻿const STORAGE_KEY = "pathmatch-live-state-v1";
+const STORAGE_KEY = "pathmatch-live-state-v1";
 
-const opportunities = [
+const opportunities = [  {
+    id: "backend-intern",
+    title: "Backend Developer Intern",
+    company: "NovaTech",
+    location: "Istanbul, Remote",
+    type: "Staj",
+    department: "Yazılım",
+    salary: "20.000 TL",
+    match: 92,
+    tags: ["Node.js", "API", "MongoDB"],
+    description: "API geliştirme süreçlerine katılacak stajyer aranıyor.",
+    requirements: ["Node.js temel", "Veritabanı mantığı", "Git"],
+    steps: ["Başvuru", "Teknik Test", "Görüşme", "Teklif"]
+  },
   {
     id: "frontend-intern",
     title: "Frontend Developer Stajyeri",
@@ -1076,6 +1089,7 @@ document.addEventListener("submit", (event) => {
 
 window.addEventListener("hashchange", render);
 render();
+
 
 
 

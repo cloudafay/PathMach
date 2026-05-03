@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PathMatch - İK Paneli</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#fcf8fa",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "primary-container": "#131b2e",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#45464d",
+                        "primary": "#000000",
+                        "surface-dim": "#dcd9db",
+                        "secondary-fixed": "#acedff",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "surface": "#fcf8fa",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-tertiary-container": "#9466ff",
+                        "surface-container": "#f0edef",
+                        "surface-container-low": "#f6f3f5",
+                        "surface-container-high": "#eae7e9",
+                        "surface-tint": "#565e74",
+                        "on-primary-fixed": "#131b2e",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-surface": "#303032",
+                        "outline": "#76777d",
+                        "background": "#fcf8fa",
+                        "tertiary-container": "#23005c",
+                        "on-background": "#1b1b1d",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#57dffe",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f3f0f2",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#006172",
+                        "on-tertiary-fixed": "#23005c",
+                        "error-container": "#ffdad6",
+                        "secondary": "#00687a",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "surface-variant": "#e4e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "button": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "label-bold": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "button": ["16px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-bold": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .soft-shadow {
+            box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar Component -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r border-outline-variant/60 sticky top-0 bg-surface-bright/50 backdrop-blur-lg">
+<div class="p-lg">
+<div class="text-xl font-black tracking-tighter text-on-surface font-h3 text-h3">PathMatch</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm mt-base">Kariyer Asistanı</div>
+</div>
+<div class="flex flex-col flex-grow p-4 space-y-2 mt-md">
+<!-- Active Tab: Panel -->
+<a class="flex items-center gap-md px-md py-sm bg-surface-container-lowest text-on-surface shadow-sm border border-outline-variant/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-bold text-label-bold">Panel</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-bold text-label-bold">Eşleşmeler</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-bold text-label-bold">Başvurular</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-bold text-label-bold">Yol Haritası</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-bold text-label-bold">Ayarlar</span>
+</a>
+</div>
+<div class="p-lg border-t border-outline-variant/30">
+<button class="w-full bg-primary text-on-primary py-sm rounded-lg font-button text-button mb-md">Premium'a Geç</button>
+<div class="flex flex-col space-y-sm">
+<a class="flex items-center gap-md text-on-surface-variant font-label-bold text-label-bold hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                    Yardım
+                </a>
+<a class="flex items-center gap-md text-on-surface-variant font-label-bold text-label-bold hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+                    Çıkış
+                </a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- TopNavBar (Mobile mainly, but keeping structure for responsive if needed, though SideNav is used. Minimal header for content area) -->
+<header class="h-20 flex items-center justify-between px-xl border-b border-outline-variant/30 bg-surface-bright/80 backdrop-blur-md sticky top-0 z-40">
+<h1 class="font-h2 text-h2 text-on-surface">İşe Alım Paneli</h1>
+<div class="flex items-center gap-md">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant/50">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate recruiter wearing a dark navy blazer over a crisp white shirt. The background is a brightly lit, modern office space with subtle glass partitions. Soft, diffused daylight creates a clean, corporate atmosphere reflecting a trustworthy and modern business aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8lt-oDzCAb0zdng5VoAugBrf1sfzKs9wMf_x--XgvQ_OOTJUpQcphRC6o5hXIaFyMrATdB21xkTKXsn09y7qputojs8WhBNWO5xn3sf7G6GjQ7Zc_UhuImNkkuyO0TSDk1bmKvo7hsdvsHTYRaXYteWznO_bbxD3U_KYTnXIFDXqbvqHGt7OGgaYFvNnfljHwNacWzrbPN35T0z07EQSCEJnsaY0I4yHvXpHOaOXnUTA06nerW6GkE4R08drdbgVWC12gLX8FAZQ"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Content Canvas -->
+<div class="p-xl overflow-y-auto bg-surface-container-low flex-grow">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-xl">
+<!-- Left Column: Overview & Pipeline -->
+<div class="lg:col-span-8 flex flex-col gap-xl">
+<!-- Top Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="glass-panel rounded-xl p-lg soft-shadow">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-on-surface-variant font-body-sm text-body-sm">Aktif İlanlar</span>
+<span class="material-symbols-outlined text-secondary">work</span>
+</div>
+<div class="font-h2 text-h2 text-on-surface">12</div>
+<div class="mt-sm text-secondary flex items-center gap-base font-label-bold text-label-bold">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                                +2 bu hafta
+                            </div>
+</div>
+<div class="glass-panel rounded-xl p-lg soft-shadow">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-on-surface-variant font-body-sm text-body-sm">Toplam Başvuru</span>
+<span class="material-symbols-outlined text-tertiary-container">group</span>
+</div>
+<div class="font-h2 text-h2 text-on-surface">843</div>
+<div class="mt-sm text-secondary flex items-center gap-base font-label-bold text-label-bold">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                                +15% artış
+                            </div>
+</div>
+<div class="glass-panel rounded-xl p-lg soft-shadow border-l-4 border-l-secondary-container">
+<div class="flex justify-between items-start mb-sm">
+<span class="text-on-surface-variant font-body-sm text-body-sm">Mülakat Bekleyen</span>
+<span class="material-symbols-outlined text-on-surface">calendar_month</span>
+</div>
+<div class="font-h2 text-h2 text-on-surface">28</div>
+<div class="mt-sm text-on-surface-variant flex items-center gap-base font-label-bold text-label-bold">
+                                5 acil aksiyon
+                            </div>
+</div>
+</div>
+<!-- Application Pipeline (Bar Chart Representation) -->
+<div class="glass-panel rounded-xl p-lg soft-shadow">
+<div class="flex justify-between items-center mb-xl">
+<h2 class="font-h3 text-h3 text-on-surface">Başvuru Akışı (Pipeline)</h2>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex flex-col gap-md">
+<!-- Sourcing -->
+<div class="flex items-center gap-md">
+<div class="w-32 text-right font-body-sm text-body-sm text-on-surface-variant">Yeni Başvuru</div>
+<div class="flex-grow h-8 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[80%] rounded-full"></div>
+</div>
+<div class="w-12 font-label-bold text-label-bold text-on-surface">450</div>
+</div>
+<!-- Screening -->
+<div class="flex items-center gap-md">
+<div class="w-32 text-right font-body-sm text-body-sm text-on-surface-variant">Ön Değerlendirme</div>
+<div class="flex-grow h-8 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim w-[45%] rounded-full"></div>
+</div>
+<div class="w-12 font-label-bold text-label-bold text-on-surface">210</div>
+</div>
+<!-- Interview -->
+<div class="flex items-center gap-md">
+<div class="w-32 text-right font-body-sm text-body-sm text-on-surface-variant">Mülakat Aşaması</div>
+<div class="flex-grow h-8 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed-dim w-[20%] rounded-full"></div>
+</div>
+<div class="w-12 font-label-bold text-label-bold text-on-surface">85</div>
+</div>
+<!-- Offer -->
+<div class="flex items-center gap-md">
+<div class="w-32 text-right font-body-sm text-body-sm text-on-surface-variant">Teklif Sunulan</div>
+<div class="flex-grow h-8 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[5%] rounded-full"></div>
+</div>
+<div class="w-12 font-label-bold text-label-bold text-on-surface">12</div>
+</div>
+</div>
+</div>
+<!-- Recommended Candidates (Bento Grid) -->
+<div>
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-h3 text-h3 text-on-surface">Önerilen Adaylar</h2>
+<a class="font-label-bold text-label-bold text-secondary hover:underline" href="#">Tümünü Gör</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Candidate Card 1 -->
+<div class="glass-panel rounded-xl p-lg soft-shadow flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-secondary-container to-tertiary-fixed-dim opacity-20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-md items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="Candidate 1" class="w-full h-full object-cover" data-alt="A portrait of a young professional woman smiling confidently. She has dark hair tied back, wearing a light blue business shirt. The background is a soft, blurred modern office environment with bright, natural lighting reflecting a clean, optimistic career-focused aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRgMh5hiuUVbAhOlJ9xB1DJOEeQ1tQIU4G3rviD4gKHYTPS0S4JdDDJr-ppmE6n7uIpclp1qYKuH-IlYw_v_l6mNJOamuHQUuJZlAJQ8yGmV2xoCzJokg883QfTSpw5WIbwFKMIHiuM3GqYSuAbrzzWs1SgRlQuOQIGbe4qy8UPIsgYS-VIGZTxglF69N1e-I2GSigkDC_41Dm4ZRz4Rxsy_9dH2wF2t1PWWBka6tC1foE-2jK7H5ftKRX5gs_LuiUEv8urn_tKYw"/>
+</div>
+<div>
+<h3 class="font-button text-button text-on-surface">Ayşe Yılmaz</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Boğaziçi Üniversitesi</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="w-10 h-10 rounded-full border-2 border-secondary flex items-center justify-center text-secondary font-label-bold text-label-bold">
+                                            %94
+                                        </div>
+<span class="text-[10px] text-on-surface-variant mt-1">Eşleşme</span>
+</div>
+</div>
+<div class="mb-lg">
+<p class="font-label-bold text-label-bold text-on-surface-variant mb-sm">Yetenekler</p>
+<div class="flex flex-wrap gap-sm">
+<span class="px-sm py-1 bg-surface-container-high rounded-full font-body-sm text-body-sm text-on-surface">React</span>
+<span class="px-sm py-1 bg-surface-container-high rounded-full font-body-sm text-body-sm text-on-surface">TypeScript</span>
+<span class="px-sm py-1 bg-surface-container-high rounded-full font-body-sm text-body-sm text-on-surface">Node.js</span>
+</div>
+</div>
+<div class="flex gap-md mt-auto pt-md border-t border-outline-variant/30">
+<button class="flex-1 py-sm border border-secondary text-secondary rounded-lg font-button text-button hover:bg-secondary hover:text-on-secondary transition-colors text-center">
+                                        Profile Git
+                                    </button>
+<button class="flex-1 py-sm bg-primary text-on-primary rounded-lg font-button text-button hover:bg-primary/90 transition-colors text-center">
+                                        Mülakata Davet Et
+                                    </button>
+</div>
+</div>
+<!-- Candidate Card 2 -->
+<div class="glass-panel rounded-xl p-lg soft-shadow flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-secondary-container to-tertiary-fixed-dim opacity-20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-md items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="Candidate 2" class="w-full h-full object-cover" data-alt="A portrait of a young male professional looking thoughtfully slightly off-camera. He has short dark hair and a neat beard, wearing a casual grey sweater over a collared shirt. The setting is bright and minimalistic, conveying a tech-forward, modern professional vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv1U9EqGC3IXKmpL5jatiQr17XTMg2FDNh1-J9hbIj0wfE3gfetT-g08QwUSII4tOYHtOUYej74-XzEBLnl7jv2pcdlcp4qyj7QRggBgiHyRkShAgxcmD0WN77mdckSBNeY24JTtg8QhFv73yc-Zu2bBg42CVY5LuRLu4xjbegDH4oxxSz3sORU82hQaCxw3gcZF42wC0S5VP3Ow3bjkLFltOcEJ7YWcAjrjz_fJxiKjW9ViI8CJHl7ZpWQiWXC6I6ZoTamVj1T5I"/>
+</div>
+<div>
+<h3 class="font-button text-button text-on-surface">Can Demir</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ODTÜ</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="w-10 h-10 rounded-full border-2 border-secondary flex items-center justify-center text-secondary font-label-bold text-label-bold">
+                                            %88
+                                        </div>
+<span class="text-[10px] text-on-surface-variant mt-1">Eşleşme</span>
+</div>
+</div>
+<div class="mb-lg">
+<p class="font-label-bold text-label-bold text-on-surface-variant mb-sm">Yetenekler</p>
+<div class="flex flex-wrap gap-sm">
+<span class="px-sm py-1 bg-surface-container-high rounded-full font-body-sm text-body-sm text-on-surface">Python</span>
+<span class="px-sm py-1 bg-surface-container-high rounded-full font-body-sm text-body-sm text-on-surface">Data Analysis</span>
+<span class="px-sm py-1 bg-surface-container-high rounded-full font-body-sm text-body-sm text-on-surface">SQL</span>
+</div>
+</div>
+<div class="flex gap-md mt-auto pt-md border-t border-outline-variant/30">
+<button class="flex-1 py-sm border border-secondary text-secondary rounded-lg font-button text-button hover:bg-secondary hover:text-on-secondary transition-colors text-center">
+                                        Profile Git
+                                    </button>
+<button class="flex-1 py-sm bg-primary text-on-primary rounded-lg font-button text-button hover:bg-primary/90 transition-colors text-center">
+                                        Mülakata Davet Et
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Widgets -->
+<div class="lg:col-span-4 flex flex-col gap-xl">
+<!-- Interview Schedule Widget -->
+<div class="glass-panel rounded-xl p-lg soft-shadow">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-h3 text-h3 text-on-surface">Yaklaşan Mülakatlar</h3>
+<button class="text-secondary hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="space-y-md">
+<!-- Schedule Item 1 -->
+<div class="flex gap-md p-md bg-surface-container-low border border-outline-variant/30 rounded-lg">
+<div class="flex flex-col items-center justify-center bg-surface-container-high px-sm py-1 rounded text-center min-w-[50px]">
+<span class="font-label-bold text-label-bold text-on-surface-variant">BUGÜN</span>
+<span class="font-button text-button text-on-surface">14:00</span>
+</div>
+<div>
+<h4 class="font-button text-button text-on-surface">Frontend Dev Görüşmesi</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Zeynep Kaya ile</p>
+</div>
+</div>
+<!-- Schedule Item 2 -->
+<div class="flex gap-md p-md bg-surface-container-low border border-outline-variant/30 rounded-lg">
+<div class="flex flex-col items-center justify-center bg-surface-container-high px-sm py-1 rounded text-center min-w-[50px]">
+<span class="font-label-bold text-label-bold text-on-surface-variant">YARIN</span>
+<span class="font-button text-button text-on-surface">10:30</span>
+</div>
+<div>
+<h4 class="font-button text-button text-on-surface">Ürün Yöneticisi 2. Tur</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ahmet Yılmaz ile</p>
+</div>
+</div>
+</div>
+<a class="block text-center mt-md font-label-bold text-label-bold text-secondary hover:underline" href="#">Tüm Takvimi Gör</a>
+</div>
+<!-- Talent Pool Analytics Widget -->
+<div class="glass-panel rounded-xl p-lg soft-shadow flex-grow">
+<h3 class="font-h3 text-h3 text-on-surface mb-md">Yetenek Havuzu Özeti</h3>
+<div class="space-y-lg">
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface-variant">Yazılım Mühendisliği</span>
+<span class="text-on-surface font-button">%45</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface-variant">Tasarım &amp; UI/UX</span>
+<span class="text-on-surface font-button">%25</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full rounded-full" style="width: 25%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface-variant">Veri Bilimi</span>
+<span class="text-on-surface font-button">%20</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-fixed-dim h-full rounded-full" style="width: 20%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-body-sm text-body-sm mb-1">
+<span class="text-on-surface-variant">Ürün Yönetimi</span>
+<span class="text-on-surface font-button">%10</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full" style="width: 10%"></div>
+</div>
+</div>
+</div>
+<div class="mt-xl p-md bg-surface-container-high rounded-lg text-center">
+<span class="material-symbols-outlined text-secondary text-[32px] mb-2 block">lightbulb</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Havuzunuzdaki Veri Bilimi aday sayısı sektör ortalamasının %15 üzerinde. Bu alanı önceliklendirebilirsiniz.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PathMatch - Akıllı Kariyer Eşleştirme Platformu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#fcf8fa",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "primary-container": "#131b2e",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#45464d",
+                        "primary": "#000000",
+                        "surface-dim": "#dcd9db",
+                        "secondary-fixed": "#acedff",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "surface": "#fcf8fa",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-tertiary-container": "#9466ff",
+                        "surface-container": "#f0edef",
+                        "surface-container-low": "#f6f3f5",
+                        "surface-container-high": "#eae7e9",
+                        "surface-tint": "#565e74",
+                        "on-primary-fixed": "#131b2e",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-surface": "#303032",
+                        "outline": "#76777d",
+                        "background": "#fcf8fa",
+                        "tertiary-container": "#23005c",
+                        "on-background": "#1b1b1d",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#57dffe",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f3f0f2",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#006172",
+                        "on-tertiary-fixed": "#23005c",
+                        "error-container": "#ffdad6",
+                        "secondary": "#00687a",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "surface-variant": "#e4e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "button": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "label-bold": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "button": ["16px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .soft-shadow {
+            box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.08);
+        }
+        .match-gradient {
+            background: conic-gradient(from 0deg, #57dffe, #9466ff);
+        }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 z-50 w-full bg-surface-container-lowest/80 backdrop-blur-md border-b border-surface-container-highest shadow-sm">
+<div class="flex justify-between items-center w-full px-lg py-sm max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-xl">
+<a class="text-h3 font-h3 tracking-tight text-primary" href="#">PathMatch</a>
+<nav class="hidden md:flex gap-md">
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors py-xs" href="#">İş İlanları</a>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors py-xs" href="#">Stajlar</a>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors py-xs" href="#">Mesajlar</a>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors py-xs" href="#">Ağım</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="hidden md:block text-button font-button text-on-surface-variant hover:text-primary transition-colors">Giriş Yap</button>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg text-button font-button hover:bg-on-surface transition-all">İlan Yayınla</button>
+<img alt="Kullanıcı Profili" class="w-10 h-10 rounded-full border border-surface-container-highest ml-sm hidden md:block" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1si3cS0W_aST_MukM3lco5VYZup0WxpK9gEVUhtyL9DYFkpvrIJBE1RhDcW3NbrCHg49Sre1zD7lMCQcZVgMmmDYGEgAUypt4LieJGoDz9Pxz-jE8huJn-NYOkZ3o3kQtTp6ezPOmd78WTRCA7tYvruPRWUCQaQ3hIwQ85UjVhi-to0B-d3A-88Eeo-hC78jZDWkx0zrs7CDGGNVKYnfaFmDCtqQHOLc8VP9V9gZauJYNXsexTZURMh8nszdCddadvhSn-Y7ol24"/>
+</div>
+</div>
+</header>
+<main class="pt-[80px]">
+<!-- Hero Section -->
+<section class="relative pt-3xl pb-2xl overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-secondary-container/20 rounded-full blur-3xl opacity-50 transform translate-x-1/3 -translate-y-1/4"></div>
+<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-tertiary-fixed/30 rounded-full blur-3xl opacity-50 transform -translate-x-1/3 translate-y-1/4"></div>
+</div>
+<div class="max-w-[1200px] mx-auto px-lg relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-2xl items-center">
+<div class="flex flex-col gap-lg">
+<span class="inline-flex items-center gap-xs px-sm py-xs rounded-full bg-surface-container-high border border-outline-variant w-fit">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container" data-weight="fill">auto_awesome</span>
+<span class="text-label-bold font-label-bold text-on-surface-variant uppercase">Yapay Zeka Destekli</span>
+</span>
+<h1 class="text-h1 font-h1 text-primary">Kariyerine En Uygun Staj ve İş Fırsatlarını Akıllı Eşleştirme ile Keşfet</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-[500px]">Yeteneklerini, hedeflerini ve ilgi alanlarını analiz eden modern kariyer platformu.</p>
+<div class="flex flex-wrap gap-md mt-sm">
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg text-button font-button hover:bg-on-surface transition-all flex items-center gap-xs">
+                            Hemen Başla
+                            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="bg-surface-container-lowest text-primary border border-outline-variant px-xl py-md rounded-lg text-button font-button hover:bg-surface-container-low transition-all">
+                            Nasıl Çalışır?
+                        </button>
+</div>
+</div>
+<div class="relative w-full h-[500px] lg:h-[600px] rounded-xl glass-panel soft-shadow p-xs">
+<img alt="Dashboard Preview" class="w-full h-full object-cover rounded-lg" data-alt="A modern, high-tech dashboard interface displayed on a sleek monitor in a bright, minimalist office setting. The screen shows abstract charts, data visualizations, and professional profiles in a clean light-mode design with subtle soft blue and purple gradient accents. The lighting is soft and diffused, creating a premium, visionary, and professional atmosphere. The overall style is clean, modern glassmorphism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEUwMQpNHYuGqBNjK-fAIukXpyoJrmPDqCxIFn244_sJP9rKxui78T5AaHzJT48MSob2QatO9yiFokpzN3oK4hL7-N2KJBdiFTFzJcQkpCvFdBZ2MXBp-zgfCE0Pr3pJys-0Zhp7r9JDEAZa0e_8wJoRnfPTyeMUDQH0VbEaJ52K-yWZvkraSc2-XtY3pgIa2UALX8ulthx9oMDenSQ8nJ9AgX9Sy9UO5lcMk9GolVyNoKqnHNR83W62x1Moc0kALVRzxQpu9XgM0"/>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-3xl bg-surface-container-lowest">
+<div class="max-w-[1200px] mx-auto px-lg">
+<div class="text-center mb-2xl">
+<h2 class="text-h2 font-h2 text-primary mb-md">Kariyerini Şekillendiren Özellikler</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-[600px] mx-auto">Seni anlayan ve potansiyelini ortaya çıkaran araçlarla donatılmış bir ekosistem.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="md:col-span-2 glass-panel rounded-xl p-lg soft-shadow flex flex-col justify-between overflow-hidden relative group">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-[32px] text-tertiary-container mb-sm bg-tertiary-fixed w-12 h-12 flex items-center justify-center rounded-lg">psychology</span>
+<h3 class="text-h3 font-h3 text-primary mb-xs">AI Eşleştirme Motoru</h3>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-[400px]">Yüzlerce veri noktasını analiz ederek becerilerinize ve kültürünüze en uygun şirketleri bulur.</p>
+</div>
+<div class="mt-lg relative h-48 rounded-lg overflow-hidden border border-surface-container-high">
+<img alt="AI Matching" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="A close-up abstract view of glowing neural network lines connecting in a bright, modern light-mode environment. The colors are dominated by pristine whites, cool cyan, and soft purple hues, illustrating advanced AI matching technology. The image conveys intelligence, connection, and future-focused professionalism with a clean minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcGn2knv4hcJBHrEsoF3tWCPL1b-Pr6kgeIRid3U65ZA4sQeRib_Dia1zQUvnbYxxn5hw9y0H6ly1gfaY4teMJQsgijGQ2GzxaSu8gUc1U-BMmb8yuLyG1GQfbGb16qRviTiOs-pKtW_Zp9GnYbg2W0HoGhWysy88AmnAuEaKm0TGz_0xgZXxlqdZziI535zoEIXRGHV3l5hVt7BB4iLVyz5kIUnQJYljycQdnfEqiEXB0gJrW4edLiip4KKyMQYjHdExGQN2el8U"/>
+</div>
+</div>
+<div class="glass-panel rounded-xl p-lg soft-shadow flex flex-col">
+<span class="material-symbols-outlined text-[32px] text-secondary mb-sm bg-secondary-fixed w-12 h-12 flex items-center justify-center rounded-lg">work</span>
+<h3 class="text-h3 font-h3 text-primary mb-xs">Staj Keşfi</h3>
+<p class="text-body-md font-body-md text-on-surface-variant flex-grow">Öğrenciler ve yeni mezunlar için özel olarak filtrelenmiş premium staj fırsatları.</p>
+</div>
+<div class="glass-panel rounded-xl p-lg soft-shadow flex flex-col">
+<span class="material-symbols-outlined text-[32px] text-primary mb-sm bg-surface-container-high w-12 h-12 flex items-center justify-center rounded-lg">person_search</span>
+<h3 class="text-h3 font-h3 text-primary mb-xs">Beceri Odaklı Profil</h3>
+<p class="text-body-md font-body-md text-on-surface-variant flex-grow">Özgeçmişin ötesine geçin. Sadece yeteneklerinizi öne çıkaran dinamik profiller oluşturun.</p>
+</div>
+<div class="md:col-span-2 glass-panel rounded-xl p-lg soft-shadow flex flex-col md:flex-row gap-lg items-center">
+<div class="flex-1">
+<span class="material-symbols-outlined text-[32px] text-tertiary-container mb-sm bg-tertiary-fixed w-12 h-12 flex items-center justify-center rounded-lg">map</span>
+<h3 class="text-h3 font-h3 text-primary mb-xs">Kariyer Yol Haritası</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Hedefinize ulaşmak için hangi becerileri geliştirmeniz gerektiğini adım adım takip edin.</p>
+</div>
+<div class="flex-1 w-full h-32 bg-surface-container rounded-lg border border-surface-container-highest relative overflow-hidden">
+<div class="absolute top-1/2 left-0 w-full h-1 bg-surface-variant -translate-y-1/2"></div>
+<div class="absolute top-1/2 left-0 w-1/2 h-1 bg-tertiary-container -translate-y-1/2"></div>
+<div class="absolute top-1/2 left-1/4 w-4 h-4 rounded-full bg-tertiary-container -translate-y-1/2 -translate-x-1/2 border-2 border-surface-container-lowest"></div>
+<div class="absolute top-1/2 left-1/2 w-4 h-4 rounded-full bg-tertiary-container -translate-y-1/2 -translate-x-1/2 border-2 border-surface-container-lowest shadow-[0_0_10px_rgba(35,0,92,0.5)]"></div>
+<div class="absolute top-1/2 left-3/4 w-4 h-4 rounded-full bg-surface-variant -translate-y-1/2 -translate-x-1/2 border-2 border-surface-container-lowest"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Internships -->
+<section class="py-3xl bg-surface">
+<div class="max-w-[1200px] mx-auto px-lg">
+<div class="flex justify-between items-end mb-xl">
+<div>
+<h2 class="text-h2 font-h2 text-primary mb-xs">Öne Çıkan Fırsatlar</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Senin profiline yüksek oranda uyan pozisyonlar</p>
+</div>
+<button class="hidden md:flex items-center gap-xs text-button font-button text-secondary hover:text-primary transition-colors">
+                        Tümünü Gör <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-container-highest p-lg soft-shadow hover:shadow-[0_10px_40px_-10px_rgba(15,23,42,0.15)] transition-shadow cursor-pointer relative">
+<div class="absolute top-lg right-lg w-12 h-12 rounded-full match-gradient p-[2px]">
+<div class="w-full h-full bg-surface-container-lowest rounded-full flex items-center justify-center text-label-bold font-label-bold text-tertiary-container">
+                                %94
+                            </div>
+</div>
+<img alt="Company Logo" class="w-12 h-12 rounded-lg mb-md bg-surface-container p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLutMhwQIcd-Spe4klfCb2VzykfrD3_NRKrOGm9HrdOn9GBV5is3de9ig8Iq3acan2aDoWzohz4basyXPiDZ-3zsWPH7UCsMJLzBK3VK41M5Ex47HGJglf5JllTaVT_6SK96s0odnmSSAIljNiJ_orkA-uKZ9rE8ciTSTF-MnM_egG38RnzxAuCHsKpvkaxw77TrkMut0drp1EkVvCx9lTaPxo268-yZa6Alb6iEMOHX55YELQtlKjWO5kq86bEIgKLu0fJ53PLz4"/>
+<h4 class="text-h3 font-h3 text-primary mb-xs text-[20px]">UX/UI Tasarım Stajyeri</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span> İstanbul, Hibrit
+                        </p>
+<div class="flex gap-xs flex-wrap mb-lg">
+<span class="px-xs py-[2px] bg-surface-container-high rounded text-label-bold font-label-bold text-on-surface-variant">Figma</span>
+<span class="px-xs py-[2px] bg-surface-container-high rounded text-label-bold font-label-bold text-on-surface-variant">Prototipleme</span>
+</div>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-surface-container-highest">
+<span class="text-label-bold font-label-bold text-on-surface-variant">2 gün önce</span>
+<button class="text-button font-button text-tertiary-container hover:text-primary">Başvur</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-container-highest p-lg soft-shadow hover:shadow-[0_10px_40px_-10px_rgba(15,23,42,0.15)] transition-shadow cursor-pointer relative">
+<div class="absolute top-lg right-lg w-12 h-12 rounded-full match-gradient p-[2px]">
+<div class="w-full h-full bg-surface-container-lowest rounded-full flex items-center justify-center text-label-bold font-label-bold text-tertiary-container">
+                                %88
+                            </div>
+</div>
+<img alt="Company Logo" class="w-12 h-12 rounded-lg mb-md bg-surface-container p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN7-TSuqf9tQFcG-_Sh52Mg37DfmXeTLA4d48F5iRAXf1G9f5p19t7Zo6kDhPRmLJpT3TPJYQULZZQPpveXKeYnxF7wDSh595hxgDKb4MqNCQpZb27Ma11Caf8nsjlaWlV7Rtz-eoxwRguP-af9Nh25gShARD0EH6Hwv5fyARVAoP6W-Dht-0lq_V9POxqZCcKhkHmq5jsIQal2LvEM4cLrLT_IiyGJlatUPWgFpfi3I7XbMhYf2LiUZOAo8mHgLOux2lmNEiSQ-c"/>
+<h4 class="text-h3 font-h3 text-primary mb-xs text-[20px]">Frontend Developer</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Uzaktan
+                        </p>
+<div class="flex gap-xs flex-wrap mb-lg">
+<span class="px-xs py-[2px] bg-surface-container-high rounded text-label-bold font-label-bold text-on-surface-variant">React</span>
+<span class="px-xs py-[2px] bg-surface-container-high rounded text-label-bold font-label-bold text-on-surface-variant">TypeScript</span>
+</div>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-surface-container-highest">
+<span class="text-label-bold font-label-bold text-on-surface-variant">Yeni İlan</span>
+<button class="text-button font-button text-tertiary-container hover:text-primary">Başvur</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-container-highest p-lg soft-shadow hover:shadow-[0_10px_40px_-10px_rgba(15,23,42,0.15)] transition-shadow cursor-pointer relative hidden lg:block">
+<div class="absolute top-lg right-lg w-12 h-12 rounded-full match-gradient p-[2px] opacity-60">
+<div class="w-full h-full bg-surface-container-lowest rounded-full flex items-center justify-center text-label-bold font-label-bold text-on-surface-variant">
+                                %72
+                            </div>
+</div>
+<img alt="Company Logo" class="w-12 h-12 rounded-lg mb-md bg-surface-container p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrBHeOShJbCT41dOqp0TwxxoC0O-NDug8NxRbG_R0PRWex5PSbaAujH_8-y-2GnuuzlR--JokdgEsdOw3gWGvgLQI_NHTkqydQk6Xu-LWxUvmL08B7QxfGHOWgVfGB1HR_eZC4vXMXkmCvUGXJuXZr146YmAywLpX-rVXV6OMnZWfkvHB46Iv1Mepo_Fq-MHZcqKdzRlFx_hmeeMpS1kEi5rc0rU_h8VSw0IPahdSj0oLieTsx10zbivqoZsFXqWxxryMTjJDrr_k"/>
+<h4 class="text-h3 font-h3 text-primary mb-xs text-[20px]">Veri Analisti Stajyeri</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Ankara, Ofis
+                        </p>
+<div class="flex gap-xs flex-wrap mb-lg">
+<span class="px-xs py-[2px] bg-surface-container-high rounded text-label-bold font-label-bold text-on-surface-variant">Python</span>
+<span class="px-xs py-[2px] bg-surface-container-high rounded text-label-bold font-label-bold text-on-surface-variant">SQL</span>
+</div>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-surface-container-highest">
+<span class="text-label-bold font-label-bold text-on-surface-variant">1 hafta önce</span>
+<button class="text-button font-button text-tertiary-container hover:text-primary">Başvur</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-surface-container-highest bg-surface-container-lowest">
+<div class="flex flex-col md:flex-row justify-between items-center px-lg py-3xl max-w-[1200px] mx-auto gap-lg">
+<div class="font-h3 text-h3 text-primary font-bold tracking-tight">
+                PathMatch
+            </div>
+<div class="flex flex-wrap justify-center gap-lg">
+<a class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Hakkımızda</a>
+<a class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Gizlilik Politikası</a>
+<a class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Kullanım Koşulları</a>
+<a class="text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">İletişim</a>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant">
+                © 2024 PathMatch. Gelecek odaklı kariyer platformu.
+            </div>
+</div>
+</footer>
+</body></html>

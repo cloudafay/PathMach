@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staj Detayı - PathMatch</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Style Guide -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fcf8fa",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "primary-container": "#131b2e",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#45464d",
+                        "primary": "#000000",
+                        "surface-dim": "#dcd9db",
+                        "secondary-fixed": "#acedff",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "surface": "#fcf8fa",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-tertiary-container": "#9466ff",
+                        "surface-container": "#f0edef",
+                        "surface-container-low": "#f6f3f5",
+                        "surface-container-high": "#eae7e9",
+                        "surface-tint": "#565e74",
+                        "on-primary-fixed": "#131b2e",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-surface": "#303032",
+                        "outline": "#76777d",
+                        "background": "#fcf8fa",
+                        "tertiary-container": "#23005c",
+                        "on-background": "#1b1b1d",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#57dffe",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f3f0f2",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#006172",
+                        "on-tertiary-fixed": "#23005c",
+                        "error-container": "#ffdad6",
+                        "secondary": "#00687a",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "surface-variant": "#e4e2e4"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "16px"
+                    },
+                    spacing: {
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "xs": "8px"
+                    },
+                    fontFamily: {
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "button": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "label-bold": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"]
+                    },
+                    fontSize: {
+                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "button": ["16px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-bold": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles */
+        body { background-color: var(--tw-colors-background, #fcf8fa); }
+        
+        /* Custom Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        
+        .shadow-float {
+            box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-white/80 backdrop-blur-md dark:bg-slate-900/80 font-['Plus_Jakarta_Sans'] antialiased docked full-width top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 shadow-sm dark:shadow-none sticky">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-screen-2xl mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-md">
+<span class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">PathMatch</span>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-body-md text-body-md hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 px-3 py-2 rounded-lg" href="#">İş İlanları</a>
+<!-- Active Link (Determined by Intent: Internship Detail Page) -->
+<a class="text-blue-600 dark:text-blue-400 font-semibold border-b-2 border-blue-600 dark:border-blue-400 pb-1 font-body-md text-body-md opacity-80 scale-95 transition-transform px-3 py-2" href="#">Stajlar</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-body-md text-body-md hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 px-3 py-2 rounded-lg" href="#">Mesajlar</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-body-md text-body-md hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 px-3 py-2 rounded-lg" href="#">Ağım</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-md">
+<button class="hidden lg:block text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-button text-button">Giriş Yap</button>
+<button class="bg-primary text-on-primary font-button text-button px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">İlan Yayınla</button>
+<img alt="Kullanıcı Profili" class="w-10 h-10 rounded-full border border-outline-variant object-cover ml-2" data-alt="A small, circular user profile picture featuring a professional headshot of a young professional in a brightly lit environment. The lighting is soft and flattering, suitable for a corporate or networking platform's light-mode user interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGe9ggUI6GITLFCwd8S-3D9eAzi5FMYRj3d6KOypZki0JsZTk292_svgKkLahB4h48-ae415nlScXwOMLUc443E2lFk0qbv0btyLKTRfW_9U-BtrdNZ0AR4D3v9BKWN027fC8Q_Sp42SCwKhe7KX2jQhdCudskMRMKfb3nbPYK0j1GNRBL72n8HRK-Wv_o8p7naSHaWGUZ7kHVCoKDTKN7yxSTMzIg9LhfHOmYm4clRQKv6Mn9o7E6JW5TJZ49nEK50lvvlAQgc2U"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-screen-2xl mx-auto px-6 py-xl grid grid-cols-1 lg:grid-cols-12 gap-xl relative">
+<!-- Left Content Area (Canvas) -->
+<div class="lg:col-span-8 flex flex-col gap-lg">
+<!-- Hero Header Card -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-lg shadow-float relative overflow-hidden group">
+<!-- Subtle background decorative element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-surface-variant to-transparent opacity-20 rounded-bl-full pointer-events-none"></div>
+<div class="flex flex-col md:flex-row gap-lg items-start md:items-center justify-between relative z-10">
+<div class="flex items-center gap-lg w-full md:w-auto">
+<div class="w-20 h-20 bg-surface flex-shrink-0 rounded-2xl border border-outline-variant p-2 flex items-center justify-center">
+<img alt="TechVanguard Logo" class="w-full h-full object-contain rounded-lg" data-alt="A sleek, modern corporate logo for a cutting-edge technology company named TechVanguard. The design features a stylized, abstract geometric emblem representing artificial intelligence and forward motion. The logo is set against a pristine, bright white background, typical of a clean, light-mode user interface. The primary colors of the logo are deep navy blue and vibrant electric cyan, conveying a sense of futuristic professionalism and trust." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKz_1DdqFso7cPWpNb3Yd65HpHQ89QNPg8QaBh4fx-MTxvEq1BVWQDChZ6CYZaKrMF_Fk6M12vD3i-epH0A_2Zr4c8VfUo5aDuf3Y-xbOhtcGStyBoKE7rJ2QASWfjSK-89awCmJTqWDL5hRQMIEnkyNJ9WdUPPEjY19wpoT8KpZ1hm5N2Su7RTNA9DMkSIrcQEkt39WJMLc_kRbWA-P4XXfG7gOysnWLjraDoQilb0S7NnQxoIMF2ML48qS4e10dfslMnwfD9qWk"/>
+</div>
+<div>
+<h1 class="font-h2 text-h2 text-on-surface mb-1">Yapay Zeka Stajyeri</h1>
+<div class="flex items-center gap-sm text-on-surface-variant font-body-md text-body-md">
+<span class="font-semibold text-primary">TechVanguard</span>
+<span class="w-1 h-1 bg-outline rounded-full"></span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">business_center</span> Teknoloji &amp; Yazılım</span>
+</div>
+</div>
+</div>
+<!-- Match Score Ring -->
+<div class="flex items-center gap-sm bg-surface rounded-full py-2 px-4 border border-outline-variant mt-4 md:mt-0 shadow-sm">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-variant" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="url(#gradient)" stroke-dasharray="92, 100" stroke-linecap="round" stroke-width="3"></path>
+<defs>
+<lineargradient id="gradient" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#57dffe"></stop>
+<stop offset="100%" stop-color="#9466ff"></stop>
+</lineargradient>
+</defs>
+</svg>
+<span class="absolute font-label-bold text-label-bold text-on-surface">92%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-on-tertiary-container uppercase">Mükemmel Uyum</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Eşleşme Oranı</span>
+</div>
+</div>
+</div>
+<!-- Quick Info Bar -->
+<div class="mt-lg pt-lg border-t border-surface-variant grid grid-cols-2 md:grid-cols-4 gap-sm text-on-surface-variant relative z-10">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px] text-primary-container">location_on</span>
+<span class="font-body-sm text-body-sm">İstanbul, TR (Hibrit)</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px] text-primary-container">calendar_month</span>
+<span class="font-body-sm text-body-sm">6 Ay (Yaz Dönemi)</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px] text-primary-container">schedule</span>
+<span class="font-body-sm text-body-sm">Son Başvuru: 24 Mayıs</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px] text-primary-container">payments</span>
+<span class="font-body-sm text-body-sm">15.000 TL / Ay</span>
+</div>
+</div>
+<!-- Actions Bar -->
+<div class="mt-lg flex flex-wrap items-center gap-sm relative z-10">
+<button class="bg-primary text-on-primary font-button text-button px-8 py-3 rounded-xl hover:opacity-90 transition-opacity flex items-center gap-sm">
+<span>Başvur</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="bg-surface-container-lowest border border-outline-variant text-on-surface font-button text-button px-6 py-3 rounded-xl hover:bg-surface-container transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+<span>Kaydet</span>
+</button>
+<button class="bg-transparent text-on-surface-variant font-button text-button px-4 py-3 rounded-xl hover:bg-surface-container transition-colors flex items-center gap-sm ml-auto">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span>Paylaş</span>
+</button>
+</div>
+</section>
+<!-- Main Content Grid Layout (Bento style arrangement) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- About Role -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-lg shadow-float md:col-span-2">
+<h2 class="font-h3 text-h3 text-on-surface mb-md">Rol Hakkında</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 leading-relaxed">
+                        TechVanguard olarak, yapay zeka ve makine öğrenmesi teknolojileri ile geleceği şekillendiriyoruz. Bu staj programında, gerçek dünya verileriyle çalışarak inovatif çözümler üretecek dinamik ekibimizin bir parçası olacaksınız. Amacımız, sadece kod yazan değil, problemleri analitik bir bakış açısıyla çözen yetenekler yetiştirmektir.
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        Staj süresince mentorlarımız eşliğinde doğal dil işleme (NLP) ve bilgisayarlı görü (Computer Vision) projelerinde aktif rol alarak kariyerinize güçlü bir başlangıç yapma fırsatı bulacaksınız.
+                    </p>
+</section>
+<!-- Responsibilities -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-lg shadow-float">
+<h2 class="font-h3 text-h3 text-on-surface mb-md">Sorumluluklar</h2>
+<ul class="space-y-sm">
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Büyük veri setlerinin temizlenmesi ve analize hazırlanması.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Temel makine öğrenmesi modellerinin tasarlanması ve eğitilmesi.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mevcut algoritmaların performans analizlerinin raporlanması.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-container mt-1">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Senior mühendislerle kod inceleme (code review) süreçlerine katılım.</span>
+</li>
+</ul>
+</section>
+<!-- Learning Outcomes (Glassmorphism highlight) -->
+<section class="glass-panel rounded-2xl p-lg shadow-float relative overflow-hidden bg-gradient-to-br from-surface-container-lowest to-surface-bright">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-secondary-fixed-dim rounded-full blur-3xl opacity-20"></div>
+<h2 class="font-h3 text-h3 text-on-surface mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-tertiary-container">lightbulb</span>
+                        Kazanımlar
+                    </h2>
+<ul class="space-y-sm relative z-10">
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant mt-1 text-[18px]">arrow_right</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Gerçek bir endüstri projesinde uçtan uca AI model dağıtımı deneyimi.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant mt-1 text-[18px]">arrow_right</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Agile metodolojileri ve profesyonel yazılım geliştirme döngüsü.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant mt-1 text-[18px]">arrow_right</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sektör profesyonelleri ile birebir mentorluk ve ağ oluşturma.</span>
+</li>
+</ul>
+</section>
+<!-- Skills -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-lg shadow-float md:col-span-2">
+<h2 class="font-h3 text-h3 text-on-surface mb-md">Yetenekler &amp; Beklentiler</h2>
+<div class="mb-md">
+<h4 class="font-label-bold text-label-bold text-on-surface-variant uppercase mb-2">Zorunlu</h4>
+<div class="flex flex-wrap gap-xs">
+<span class="px-3 py-1.5 bg-surface rounded-full border border-surface-variant font-body-sm text-body-sm text-on-surface">Python</span>
+<span class="px-3 py-1.5 bg-surface rounded-full border border-surface-variant font-body-sm text-body-sm text-on-surface">PyTorch / TensorFlow</span>
+<span class="px-3 py-1.5 bg-surface rounded-full border border-surface-variant font-body-sm text-body-sm text-on-surface">SQL</span>
+<span class="px-3 py-1.5 bg-surface rounded-full border border-surface-variant font-body-sm text-body-sm text-on-surface">Temel İstatistik</span>
+</div>
+</div>
+<div>
+<h4 class="font-label-bold text-label-bold text-on-surface-variant uppercase mb-2">Tercih Sebebi</h4>
+<div class="flex flex-wrap gap-xs">
+<span class="px-3 py-1.5 bg-surface-bright rounded-full border border-dashed border-outline-variant font-body-sm text-body-sm text-on-surface-variant">Git &amp; Versiyon Kontrolü</span>
+<span class="px-3 py-1.5 bg-surface-bright rounded-full border border-dashed border-outline-variant font-body-sm text-body-sm text-on-surface-variant">Docker</span>
+<span class="px-3 py-1.5 bg-surface-bright rounded-full border border-dashed border-outline-variant font-body-sm text-body-sm text-on-surface-variant">AWS / Bulut Teknolojileri</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Right Sidebar Area -->
+<aside class="lg:col-span-4">
+<div class="sticky top-[100px] flex flex-col gap-lg">
+<!-- Similar Opportunities Widget -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-lg shadow-float">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-h3 text-h3 text-on-surface">Benzer Fırsatlar</h3>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">more_horiz</button>
+</div>
+<div class="space-y-sm">
+<!-- Card 1 -->
+<a class="block p-sm rounded-xl hover:bg-surface transition-colors border border-transparent hover:border-surface-variant group" href="#">
+<div class="flex gap-sm">
+<img alt="DataCore Logo" class="w-12 h-12 rounded-lg border border-outline-variant object-cover bg-white p-1" data-alt="A minimalist, contemporary logo for a data analytics firm named DataCore. The emblem consists of interconnected nodes or a stylized network graph, symbolizing data flow and connectivity. Set against a clean, bright white background suitable for a modern web application interface. The logo utilizes a palette of soft slate gray and emerald green, creating an aesthetic of reliability and precision in a light, airy setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuoZoYqrLCfKafOLldOxRUjtwOsbimqKBdeMD7TztNm7334O2_YcnDfPtjODTVwYljX7zrnqg9W6EKeHyvBbcA5ylW7XcUquD9dQEqMQCGxPoeiKmMniQ4xC-fi-2QQIPuo56V0zUbDnf350xIoGF83IuwMUemCFtQNBTPsYWRsr2v73OdNyfjbQqlb-Oi_FY7gVIahVRPwBocND5P7fmZInt5PueN9-8PC1yxNGR0LHz_mbaapmc1xkoAoesrWrBKLs8anr4ln7s"/>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-surface group-hover:text-secondary-container transition-colors">Veri Bilimi Stajyeri</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">DataCore • Ankara</p>
+</div>
+<div class="flex flex-col items-end justify-center">
+<span class="font-label-bold text-label-bold text-on-tertiary-container">88%</span>
+<span class="text-[10px] uppercase tracking-wider text-on-surface-variant">Uyum</span>
+</div>
+</div>
+</a>
+<hr class="border-surface-variant"/>
+<!-- Card 2 -->
+<a class="block p-sm rounded-xl hover:bg-surface transition-colors border border-transparent hover:border-surface-variant group" href="#">
+<div class="flex gap-sm">
+<img alt="CodeWorks Logo" class="w-12 h-12 rounded-lg border border-outline-variant object-cover bg-white p-1" data-alt="A professional, minimalist logo for a software development agency named CodeWorks. The design incorporates abstract code brackets integrated with a subtle gear motif, symbolizing software engineering and creation. The background is a crisp, bright white, perfectly aligning with a modern, high-end digital platform's light theme. The logo's color scheme is primarily deep charcoal and a soft, muted purple, evoking a sense of creativity and technical expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFAPDBCms3Oqdw-KoGsNjvH5kfWndS6QcIHpA0TWQyHTF7MTPsBcz2LXYIz2l_Rd8WMVyKrzJ7DcvsnObgt5vmK2VaIn8eydn-ycr7pG8mFA2_Pk7SeiVxHAtJyT7Az-YTlke-0gkVPW7FYqOzLv_d5yjYq6DBc_rdfjYQXUUrsFtCU_rMocUt7_ish9uWvDjYWlx93DM8yE1Z8PTreGJbqhc21W0jCvwF7AciCUaZd-Z_0uF5tyNAlON8_LgeIwQtBATXmLt5PyA"/>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-surface group-hover:text-secondary-container transition-colors">Yazılım Geliştirme Stajyeri</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">CodeWorks • Uzaktan</p>
+</div>
+<div class="flex flex-col items-end justify-center">
+<span class="font-label-bold text-label-bold text-on-tertiary-container">85%</span>
+<span class="text-[10px] uppercase tracking-wider text-on-surface-variant">Uyum</span>
+</div>
+</div>
+</a>
+<hr class="border-surface-variant"/>
+<!-- Card 3 -->
+<a class="block p-sm rounded-xl hover:bg-surface transition-colors border border-transparent hover:border-surface-variant group" href="#">
+<div class="flex gap-sm">
+<img alt="CloudNet Logo" class="w-12 h-12 rounded-lg border border-outline-variant object-cover bg-white p-1" data-alt="A sleek, modern corporate icon for a cloud computing service named CloudNet. The logo features a stylized, minimalist cloud intersected by dynamic digital pathways. Set on a stark white background appropriate for a clean, professional web application interface. The color palette focuses on vivid azure blue and stark black, conveying speed, security, and modern technological advancement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMlpufXK4pgheiaB_awKYWg4Kt56eGr0SxlDTmiv2MRjv1SkKubsgJdNqBKlsSnxNgkwmLnNPAV5a8IIwtuXFq8Lm6Vbpg18XJru-_kK_hTIiGRG7ppT7hQi0sRqEB9UGMYs6raSI-wmni_QobuR7Qe8NiPmC054yJR7Q2NKLOeMe1uhx9NZtuuxpZvsybWqQK0yoERmw-vRTzGTZqI71u3NMVZxge3AgwxrB27Q0IJP980i0Fsya3Szow5ErTGBsS-0l-h6vfb-k"/>
+<div class="flex-grow">
+<h4 class="font-button text-button text-on-surface group-hover:text-secondary-container transition-colors">DevOps Asistanı</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">CloudNet • İstanbul</p>
+</div>
+<div class="flex flex-col items-end justify-center">
+<span class="font-label-bold text-label-bold text-on-tertiary-container">79%</span>
+<span class="text-[10px] uppercase tracking-wider text-on-surface-variant">Uyum</span>
+</div>
+</div>
+</a>
+</div>
+<button class="w-full mt-sm py-2 border-t border-surface-variant text-center font-button text-button text-primary hover:text-secondary-container transition-colors">
+                        Tümünü Gör
+                    </button>
+</div>
+<!-- Status Badge Example (Decorative) -->
+<div class="bg-surface-container-low rounded-xl p-md border border-outline-variant flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary-container">auto_awesome</span>
+<span class="font-body-sm text-body-sm text-on-surface">Profiliniz bu rol için öne çıkıyor.</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-white dark:bg-slate-950 w-full border-t border-slate-100 dark:border-slate-900 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-7xl mx-auto font-['Plus_Jakarta_Sans'] text-xs">
+<div class="mb-4 md:mb-0">
+<span class="font-bold text-slate-900 dark:text-white text-sm">PathMatch</span>
+<p class="text-slate-400 dark:text-slate-500 mt-1">© 2024 PathMatch. Gelecek odaklı kariyer platformu.</p>
+</div>
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Hakkımızda</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Gizlilik Politikası</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Kullanım Koşulları</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">İletişim</a>
+</nav>
+</div>
+</footer>
+</body></html>

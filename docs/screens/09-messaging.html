@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PathMatch - Mesajlar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#fcf8fa",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "primary-container": "#131b2e",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#45464d",
+                        "primary": "#000000",
+                        "surface-dim": "#dcd9db",
+                        "secondary-fixed": "#acedff",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "surface": "#fcf8fa",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-tertiary-container": "#9466ff",
+                        "surface-container": "#f0edef",
+                        "surface-container-low": "#f6f3f5",
+                        "surface-container-high": "#eae7e9",
+                        "surface-tint": "#565e74",
+                        "on-primary-fixed": "#131b2e",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-surface": "#303032",
+                        "outline": "#76777d",
+                        "background": "#fcf8fa",
+                        "tertiary-container": "#23005c",
+                        "on-background": "#1b1b1d",
+                        "on-secondary-fixed": "#001f26",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#bec6e0",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#57dffe",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f3f0f2",
+                        "tertiary": "#000000",
+                        "on-secondary-container": "#006172",
+                        "on-tertiary-fixed": "#23005c",
+                        "error-container": "#ffdad6",
+                        "secondary": "#00687a",
+                        "on-primary-container": "#7c839b",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "surface-variant": "#e4e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "button": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "label-bold": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "button": ["16px", { "lineHeight": "1", "fontWeight": "600" }],
+                        "h1": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-bold": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen flex flex-col overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-white/80 backdrop-blur-md dark:bg-slate-900/80 text-slate-900 dark:text-slate-100 font-['Plus_Jakarta_Sans'] antialiased docked full-width top-0 z-50 border-b border-slate-200/60 dark:border-slate-800/60 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-lg">
+<div class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">PathMatch</div>
+<nav class="hidden md:flex gap-md ml-lg">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-button text-button py-2 px-1" href="#">İş İlanları</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-button text-button py-2 px-1" href="#">Stajlar</a>
+<a class="text-blue-600 dark:text-blue-400 font-semibold border-b-2 border-blue-600 dark:border-blue-400 pb-1 font-button text-button py-2 px-1 opacity-80 scale-95 transition-transform" href="#">Mesajlar</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-button text-button py-2 px-1" href="#">Ağım</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-button text-button text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 py-2 px-4 rounded-lg hidden sm:block">Giriş Yap</button>
+<button class="font-button text-button bg-primary text-on-primary py-2 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200">İlan Yayınla</button>
+<img alt="Kullanıcı Profili" class="w-10 h-10 rounded-full border border-slate-200 object-cover ml-sm" data-alt="A professional headshot of a person, well-lit, smiling subtly. The lighting is studio quality, creating a clean, modern aesthetic suitable for a professional networking platform profile picture. The background is neutral, focusing attention on the individual." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBklz8zRgJD2rvD8jhAQ2wQgGGGPpzDciQScv1PbJiXCV-POgJF3hnd0BhJgXoNj1mSgynASWq3Fz7ITSj1vCUMr-N95n5jgHX30wc0yUhDR4N01d5LtuRXVmL3Gjy1SAhaFUaC0bRI4G3rOBLcXWJpEZ08hrYoVqlLwDD33_8P0_9l21qQvm4DAb71u4Q_Gzy0FPKO3TSs6plA6mib0TeB5y2pg2hA-GvKL3O-gnu2jBnzT5uaQBjuFOugVUK7SSxSKNjZqiRwEOs"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden max-w-screen-2xl mx-auto w-full">
+<!-- Left Chat List -->
+<aside class="w-full md:w-[350px] lg:w-[400px] border-r border-outline-variant bg-surface-container-lowest flex flex-col h-full flex-shrink-0">
+<!-- Search & Filters -->
+<div class="p-lg border-b border-outline-variant flex flex-col gap-sm">
+<h1 class="font-h3 text-h3 text-primary mb-xs">Mesajlar</h1>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-xl pr-sm py-2 bg-surface-container-low border border-surface-container-highest rounded-lg font-body-sm text-body-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary/20 transition-all" placeholder="Ara..." type="text"/>
+</div>
+<div class="flex gap-xs mt-xs overflow-x-auto pb-1 scrollbar-hide">
+<button class="font-label-bold text-label-bold px-sm py-1 bg-secondary-container text-on-secondary-container rounded-full whitespace-nowrap">Tümü</button>
+<button class="font-label-bold text-label-bold px-sm py-1 border border-outline-variant text-on-surface-variant hover:bg-surface-container rounded-full whitespace-nowrap transition-colors">Okunmamış</button>
+<button class="font-label-bold text-label-bold px-sm py-1 border border-outline-variant text-on-surface-variant hover:bg-surface-container rounded-full whitespace-nowrap transition-colors">Şirketler</button>
+</div>
+</div>
+<!-- Chat List Items -->
+<div class="flex-1 overflow-y-auto">
+<!-- Active Chat Item -->
+<div class="p-md flex gap-md items-start bg-primary-fixed/20 border-l-4 border-secondary cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="relative">
+<img alt="TechNova Corp Logo" class="w-12 h-12 rounded-lg object-cover border border-outline-variant" data-alt="A clean, modern logo for a fictional tech company named TechNova. The logo features abstract geometric shapes in deep navy and electric blue tones on a white background. It represents innovation and professionalism, fitting for a corporate entity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtTc2nhvXKGuOIlnFEryRfDbQdmGuTjc7jjf63sKAjyCe29eMojSSntzW796RSUBDxLT68Hv0dWYIdHRmiEYejV8DkTSh2uAfsDPG5lXrJiuYi4ys0S6j_7j1tDtiAsOaDk3nbr0a2pbQP2_DZnwXvZO-G7eSz0v1JY_3lOSvBHD609kZI05NEEQTczJBV_fpXNJcFgJDJ0QJqUtutPViZnyAa-GWnCVGINOk2d5Ccg4ObSMajyaz5fFyWbim5d7F0VLtj5Wme0vA"/>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-[#10B981] rounded-full border-2 border-surface-container-lowest"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-button text-button text-primary truncate">TechNova Corp.</h3>
+<span class="font-label-bold text-label-bold text-outline">10:42</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Portfolyonuzu inceledik, harika görünüyor...</p>
+</div>
+</div>
+<!-- Chat Item 2 -->
+<div class="p-md flex gap-md items-start cursor-pointer hover:bg-surface-container-low transition-colors border-b border-surface-container">
+<div class="relative">
+<img alt="Ayşe Yılmaz Profile" class="w-12 h-12 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a young woman with dark hair, smiling warmly. The lighting is soft and natural, creating a welcoming and approachable professional persona. The background is a blurred office environment in light, airy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl04hRZJKwxhMVM37u-dCGL_Ri_i3OaOy6s0jzYg6vjcvwMzzdgUzEmdYIVUTJavUPIJZTCQRoaDpBwbrJr6733zfGzMIkiOt-37ak4hAo_WlQumGHi5oSLK0RGNKKbM0XU48Yp1QSxJazPg9oi3rDk720OKRS_jLkW8qFGkUYL-tX68lu6hh-gd3KYJkdlkLVA3Vkzn_yX5k2a6jkzuhH0AZ4_np7MSgRlakR-7Z-JGTO2ShSRMeIHkVveiHigePYsO0ie8KpuTs"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-button text-button text-primary truncate">Ayşe Yılmaz</h3>
+<span class="font-label-bold text-label-bold text-outline">Dün</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate font-semibold text-primary">Mülakat saati teyidi hakkında</p>
+</div>
+<div class="w-2 h-2 bg-secondary rounded-full mt-2"></div>
+</div>
+<!-- Chat Item 3 -->
+<div class="p-md flex gap-md items-start cursor-pointer hover:bg-surface-container-low transition-colors border-b border-surface-container">
+<div class="relative">
+<img alt="Global Design Co Logo" class="w-12 h-12 rounded-lg object-cover border border-outline-variant" data-alt="A minimalist logo for a design agency, featuring sleek typography and a subtle abstract icon. The color palette is strictly black, white, and a touch of vibrant red to stand out. It conveys creativity and high-end professional design services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7iFLj8aX048v1vmNkcB9qWUezGkylsp239BKiXSSKkBQvmr9b17g3uVajdUWLNiSheM-5ABbL0L6uAK0hPsLpQ7BktQiv1_pvv36Ng8obl3aYfIAbnUkDbmN1tYS4ISC0oTLO9qmhM_A6FRv7PoLFkNJELPxYuInTVFj69xrWj21wBB2HoJnfiqAqx4UIB_Va8iYntuRzAPulP9R9sMY2qrLiPROCPo96dB8vDaN8SjoEUrklPttL75s6kctIKIVbO2slk6XV1cM"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-1">
+<h3 class="font-button text-button text-primary truncate">Global Design Co.</h3>
+<span class="font-label-bold text-label-bold text-outline">Pzt</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Başvurunuz için teşekkür ederiz.</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Thread Area -->
+<section class="flex-1 hidden md:flex flex-col bg-surface-bright h-full relative">
+<!-- Thread Header -->
+<div class="px-xl py-md border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center shrink-0 shadow-[0_4px_24px_-12px_rgba(15,23,42,0.08)] z-10">
+<div class="flex items-center gap-md">
+<img alt="TechNova Corp Logo" class="w-12 h-12 rounded-lg object-cover border border-outline-variant" data-alt="A clean, modern logo for a fictional tech company named TechNova. The logo features abstract geometric shapes in deep navy and electric blue tones on a white background. It represents innovation and professionalism, fitting for a corporate entity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8e0ASNz_W12HEAYPAnqH4Z8v6LhYzOVX27q9ZUHTpN6kNONOd2Ak1j9CAUEcvbYDS_LuMLr7pCojfJnlg53g1sX7PP9M8quY7QqMk54W_Ej_WSfvlP1aiJbDQ3939sdVWoTCr_m2xoI1gAAMpWPA3mILvfJqwi1TW4i4gRpyOy4VRBBdHE_rrgcAcCKaJJgfISuos7ced3CcCmIRNVf1qcBA_ZJ_La9SqfOXWJMeMDPTaUt8rhfwOF5mS1hPhbB2hdSBegr4AjHc"/>
+<div>
+<h2 class="font-h3 text-h3 text-primary">TechNova Corp.</h2>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-[#10B981] rounded-full"></span>
+<span class="font-body-sm text-body-sm text-outline">Çevrimiçi • İnsan Kaynakları Ekibi</span>
+</div>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Messages Area -->
+<div class="flex-1 overflow-y-auto p-xl flex flex-col gap-lg">
+<!-- Date Divider -->
+<div class="flex justify-center">
+<span class="font-label-bold text-label-bold text-outline bg-surface-container-low px-3 py-1 rounded-full">Bugün</span>
+</div>
+<!-- Incoming Message Block -->
+<div class="flex gap-md max-w-[80%]">
+<img alt="HR Representative" class="w-8 h-8 rounded-full object-cover mt-1" data-alt="A professional headshot of an HR representative, a middle-aged man with a neat beard, wearing a smart casual blazer. The background is a bright, modern corporate office. The lighting is crisp and clear, conveying a professional and approachable demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6BF1UX7LNEYx4YrN0E7fzEXTjjrKsn354ztZ3p7Mt99Bh1L7HTkhh3e1xSYKr_5NfdZ5UVu_62y0rYaG7-M2OScx98ub17iSZzHhIGsw7SQ-mWAkCVSBNeKTPg7R3v0v77MIsPgxJfsVx6OvOHTqFhEHIDzYzDSH_kHuIJ48jdeXWB5oU_MkyzJtFQ895kn_iQhgWUThGaKw5aZCOCRsoc9UrlmHL8iP4tqDdXPxsGjniCltDcBnkN1FxAEgxl5gldRig7zY5dD4"/>
+<div class="flex flex-col gap-1">
+<div class="flex items-baseline gap-2">
+<span class="font-button text-button text-primary text-sm">Cemil K.</span>
+<span class="font-label-bold text-label-bold text-outline">10:30</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-2xl rounded-tl-sm shadow-[0_2px_8px_-4px_rgba(15,23,42,0.04)]">
+<p class="font-body-md text-body-md text-on-surface">Merhaba, başvurunuzu büyük bir ilgiyle inceledik. Profiliniz aradığımız pozisyonla yüksek oranda eşleşiyor.</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-2xl shadow-[0_2px_8px_-4px_rgba(15,23,42,0.04)] mt-1">
+<p class="font-body-md text-body-md text-on-surface">Mümkünse detaylı bir portfolyo iletebilir misiniz? Ayrıca kısa bir görüşme planlamak isteriz.</p>
+</div>
+</div>
+</div>
+<!-- Outgoing Message Block -->
+<div class="flex gap-md max-w-[80%] self-end flex-row-reverse">
+<img alt="Kullanıcı Profili" class="w-8 h-8 rounded-full object-cover mt-1 border border-outline-variant" data-alt="A professional headshot of a person, well-lit, smiling subtly. The lighting is studio quality, creating a clean, modern aesthetic suitable for a professional networking platform profile picture. The background is neutral, focusing attention on the individual." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjwZKqljz_ACfZXcR-1HJnF4lBhZL2NpSbcFgXg3P8DEa2XIvqe9jUKe6xtvTc9njtBWW-wtw5Vs7kb3X6L_T9d7pgNhZwFvgSTvmfn-_VNIQeAtBAl29l-ANfrlGroccSqshqvTFr3R7IHX9fgPr6sm9wb8pSJu9WyNzaFFy1M37gYXjWrA1gwp0N1oDW_4_jMUjYDDyKRdR0en0YQxgm_P371j0kG3V2sBgjr6O8vc3B9_PD5sLPKq5gCLkZtc04Ec5023dXVCU"/>
+<div class="flex flex-col gap-1 items-end">
+<div class="flex items-baseline gap-2 flex-row-reverse">
+<span class="font-button text-button text-primary text-sm">Sen</span>
+<span class="font-label-bold text-label-bold text-outline">10:45</span>
+</div>
+<div class="bg-secondary text-on-secondary p-4 rounded-2xl rounded-tr-sm shadow-[0_4px_12px_-4px_rgba(0,104,122,0.3)]">
+<p class="font-body-md text-body-md">Harika haber, teşekkür ederim Cemil Bey! Portfolyomu hemen iletiyorum.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Composer Area -->
+<div class="p-xl bg-surface-container-lowest border-t border-outline-variant shrink-0 relative z-10">
+<!-- Quick Action Chips -->
+<div class="flex gap-sm mb-md overflow-x-auto pb-2 scrollbar-hide">
+<button class="flex items-center gap-2 px-4 py-2 border border-secondary text-secondary hover:bg-secondary/5 rounded-full font-button text-button text-sm transition-colors whitespace-nowrap bg-white">
+<span class="material-symbols-outlined text-[18px]">folder_open</span>
+                        Portfolyo Gönder
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-secondary text-secondary hover:bg-secondary/5 rounded-full font-button text-button text-sm transition-colors whitespace-nowrap bg-white">
+<span class="material-symbols-outlined text-[18px]">event</span>
+                        Mülakat Planla
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant text-on-surface-variant hover:bg-surface-container rounded-full font-button text-button text-sm transition-colors whitespace-nowrap bg-white">
+<span class="material-symbols-outlined text-[18px]">rate_review</span>
+                        Geri Bildirim İste
+                    </button>
+</div>
+<!-- Input Box -->
+<div class="flex items-end gap-sm bg-surface-container-low border border-surface-container-highest rounded-xl p-2 focus-within:border-secondary focus-within:ring-1 focus-within:ring-secondary/20 transition-all">
+<button class="p-2 text-outline hover:text-primary transition-colors flex items-center justify-center rounded-lg hover:bg-surface-variant">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none resize-none font-body-md text-body-md text-primary placeholder-outline p-2 focus:ring-0 max-h-[120px] min-h-[44px]" placeholder="Bir mesaj yazın..." rows="1"></textarea>
+<button class="p-2 bg-secondary text-on-secondary rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+</body></html>

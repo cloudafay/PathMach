@@ -384,30 +384,10 @@ function mobileNavItems(user) {
   }
 
   return appShell(`
-    <main class="page layout">
-      ${sidebar(user)}
-      <section class="content">${inner(user)}</section>
-    </main>
-  `, { hideTopbar: true });
-}
-
-
-  function renderLanding() {
-    return appShell(`
-      <section class="relative pt-3xl pb-xl md:pt-120px md:pb-3xl overflow-hidden min-h-[80vh] flex flex-col justify-center items-center">
-          <div class="px-lg md:px-2xl max-w-[1400px] w-full mx-auto relative z-10">
-              <div class="flex flex-col items-center text-center max-w-3xl mx-auto space-y-lg md:space-y-xl">
-                  <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-fixed-dim/20 text-on-secondary-fixed-variant border border-secondary-fixed-dim/30">
-                      <span class="material-symbols-outlined text-sm">auto_awesome</span>
-                      <span class="font-label-bold text-label-bold uppercase tracking-wider text-xs">YENİ NESİL KARİYER PLATFORMU</span>
-                  </div>
-                  <h1 class="font-h1 text-h1 text-on-surface tracking-tighter leading-tight">
-                      Geleceğini şansa değil,<br/>
-                      <span class="text-tertiary-container">Akıllı eşleşmeye</span> bırak.
-                  </h1>
-                  <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-                      Öğrenciler ve yeni mezunlar için kişiselleştirilmiş staj ve iş fırsatları. Kurumlar için doğru yeteneğe ulaşmanın en hızlı ve veri odaklı yolu.
-                  </p>
+        <div class="p-lg md:p-2xl max-w-[1400px] mx-auto">
+            ${inner(user)}
+        </div>
+    `);
                   <div class="flex flex-col sm:flex-row items-center gap-4 pt-sm w-full sm:w-auto">
                       <a href="#/register" class="w-full sm:w-auto px-xl py-4 bg-primary text-on-primary rounded-full font-button text-button shadow-lg shadow-primary/20 hover:-translate-y-1 transition-transform duration-300">
                           Hemen Başla
@@ -544,29 +524,35 @@ function renderAuth(mode) {
   const applied = hasApplied(item.id);
   const saved = state.saved.includes(item.id);
   return `
-    <article class="card opportunity">
-      <div class="opportunity-top">
-        <span class="logo-tile">${item.company.slice(0, 2).toUpperCase()}</span>
-        <div class="opportunity-title">
-          <h3>${item.title}</h3>
-          <p>${item.company} · ${item.location} · ${item.salary}</p>
-          <div class="tags">
-            <span class="tag tag-cyan">${item.match}% eşleşme</span>
-            <span class="tag">${item.type}</span>
-            <span class="tag tag-purple">${item.department}</span>
+      <article class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 flex flex-col gap-4 hover:border-secondary-fixed/50 transition-colors">
+        <div class="flex items-start gap-3">
+          <div class="w-12 h-12 shrink-0 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface font-h3 text-xl tracking-tighter">
+            ${item.company.slice(0, 2).toUpperCase()}
           </div>
-          ${compact ? "" : `<p class="muted">${item.description}</p>`}
-          <div class="tags">${item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
+          <div class="min-w-0 flex-1">
+            <h3 class="font-button text-on-surface truncate">${item.title}</h3>
+            <p class="font-body-sm text-on-surface-variant mb-2 truncate">${item.company} · ${item.location} · ${item.salary}</p>
+            <div class="flex flex-wrap gap-2 mb-2">
+              <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-label-bold bg-secondary-fixed/20 text-on-secondary-container">${item.match}% eşleşme</span>
+              <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-label-bold bg-surface-container-high text-on-surface-variant">${item.type}</span>
+              <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-label-bold bg-tertiary-fixed/20 text-on-tertiary-container">${item.department}</span>
+            </div>
+            ${compact ? "" : `<p class="font-body-sm text-on-surface-variant line-clamp-3 mb-3">${item.description}</p>`}
+            <div class="flex flex-wrap gap-2">
+              ${item.tags.map((tag) => `<span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-label-bold bg-surface-container text-on-surface-variant">${tag}</span>`).join("")}
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="grid">
-        <a class="btn btn-ghost btn-small" href="#/opportunity/${item.id}">${icon("open_in_new")}Detay</a>
-        <button class="btn ${applied ? "btn-secondary" : "btn-primary"} btn-small" data-action="apply" data-id="${item.id}">${icon(applied ? "check_circle" : "send")}${applied ? "Başvuruldu" : "Başvur"}</button>
-        <button class="btn btn-ghost btn-small" data-action="save" data-id="${item.id}">${icon(saved ? "bookmark_added" : "bookmark")}${saved ? "Kaydedildi" : "Kaydet"}</button>
-      </div>
-    </article>
-  `;
-}
+        <div class="mt-auto pt-3 border-t border-outline-variant/30 grid grid-cols-3 gap-2">
+          <a class="flex justify-center items-center gap-1 py-1.5 rounded-lg font-button text-xs text-on-surface hover:bg-surface-container-high transition-colors" href="#/opportunity/${item.id}">
+            ${icon("open_in_new")} Detay
+          </a>
+          <button class="flex justify-center items-center gap-1 py-1.5 rounded-lg font-button text-xs ${applied ? "bg-secondary-fixed/20 text-secondary" : "bg-primary text-on-primary hover:bg-primary/90"} transition-colors" data-action="apply" data-id="${item.id}">
+            ${icon(applied ? "check_circle" : "send")} ${applied ? "Uygulandı" : "Başvur"}
+          </button>
+          <button class="flex justify-center items-center gap-1 py-1.5 rounded-lg font-button text-xs text-on-surface hover:bg-surface-container-high transition-colors" data-action="save" data-id="${item.id}">
+            ${icon(saved ? "bookmark_added" : "bookmark")} ${saved ? "Kayıtlı" : "Kaydet"}
+          </button>
 
 function filteredOpportunities() {
   return opportunities.filter((item) => {
@@ -901,42 +887,64 @@ function renderCompany() {
 function renderCompanyInner(user) {
   const activeApplications = state.applications.length;
   return `
-    <div class="page-head">
-      <div><h2>İşveren paneli</h2><p>İlanlarını, aday sinyallerini ve görüşme akışını yönet.</p></div>
-      <a class="btn btn-secondary" href="#/messages">${icon("chat")}Aday mesajları</a>
-    </div>
-    <div class="grid grid-3">
-      <div class="card stat-card">${icon("campaign")}<strong>${state.companyJobs.length}</strong><span>İlan</span></div>
-      <div class="card stat-card">${icon("groups")}<strong>${state.companyJobs.reduce((sum, job) => sum + Number(job.applicants || 0), 0)}</strong><span>Aday</span></div>
-      <div class="card stat-card">${icon("assignment")}<strong>${activeApplications}</strong><span>Platform başvurusu</span></div>
-    </div>
-    <section class="section">
-      <div class="section-head"><div><h2>İlan oluştur</h2><p>Yeni ilan local olarak listeye eklenir.</p></div></div>
-      <form class="company-form" data-form="job">
-        <div class="field"><label>Pozisyon</label><input name="title" required placeholder="Örn. UI Developer Intern" /></div>
-        <div class="field"><label>Konum</label><input name="location" required placeholder="Istanbul, Hibrit" /></div>
-        <div class="field"><label>Departman</label><select name="department">${selectOptions(["Yazılım", "Tasarım", "Veri", "Pazarlama"], "Yazılım")}</select></div>
-        <div class="field"><label>Durum</label><select name="status">${selectOptions(["Yayında", "Taslak"], "Yayında")}</select></div>
-        <button class="btn btn-primary span-2" type="submit">${icon("add")}İlanı ekle</button>
-      </form>
-    </section>
-    <section class="section">
-      <div class="section-head"><div><h2>İlanlar</h2><p>${user.institution || user.name} hesabındaki açık pozisyonlar.</p></div></div>
-      <div class="grid">
-        ${state.companyJobs.map((job) => `
-          <article class="card opportunity">
-            <div class="opportunity-top">
-              <span class="icon-tile">${icon("business_center")}</span>
-              <span class="opportunity-title">
-                <h3>${job.title}</h3>
-                <p>${job.location} · ${job.department}</p>
-                <span class="tags"><span class="tag ${statusClass(job.status)}">${job.status}</span><span class="tag">${job.applicants} aday</span></span>
-              </span>
-            </div>
-            <button class="btn btn-danger btn-small" data-action="job-remove" data-id="${job.id}">${icon("delete")}Kaldır</button>
-          </article>
-        `).join("")}
+      <div class="mb-lg flex justify-between items-end">
+        <div>
+          <h2 class="font-h2 text-h2 text-on-surface tracking-tight">İşveren paneli</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-2">İlanlarını, aday sinyallerini ve görüşme akışını yönet.</p>
+        </div>
+        <a class="flex items-center gap-2 px-xl py-2 bg-secondary-fixed/20 text-secondary rounded-full font-button text-button hover:bg-secondary-fixed transition-colors" href="#/messages">${icon("chat")}Aday mesajları</a>
       </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+        <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30">
+          <div class="flex items-center gap-3 mb-2"><div class="w-10 h-10 rounded-full bg-secondary-fixed/20 flex items-center justify-center text-secondary">${icon("campaign")}</div><span class="font-label-bold text-on-surface-variant">İlan</span></div>
+          <strong class="text-3xl font-h2 text-on-surface">${state.companyJobs.length}</strong>
+        </div>
+        <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30">
+          <div class="flex items-center gap-3 mb-2"><div class="w-10 h-10 rounded-full bg-tertiary-fixed/20 flex items-center justify-center text-tertiary">${icon("groups")}</div><span class="font-label-bold text-on-surface-variant">Aday</span></div>
+          <strong class="text-3xl font-h2 text-on-surface">${state.companyJobs.reduce((sum, job) => sum + Number(job.applicants || 0), 0)}</strong>
+        </div>
+        <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30">
+          <div class="flex items-center gap-3 mb-2"><div class="w-10 h-10 rounded-full bg-primary-fixed/20 flex items-center justify-center text-primary">${icon("assignment")}</div><span class="font-label-bold text-on-surface-variant">Platform başvurusu</span></div>
+          <strong class="text-3xl font-h2 text-on-surface">${activeApplications}</strong>
+        </div>
+      </div>
+      <section class="mb-xl">
+        <div class="mb-md">
+          <h2 class="font-h3 text-xl text-on-surface">İlan oluştur</h2>
+          <p class="text-sm text-on-surface-variant">Yeni ilan local olarak listeye eklenir.</p>
+        </div>
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-md bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30" data-form="job">
+          <div class="flex flex-col gap-2"><label class="font-label-bold text-on-surface-variant">Pozisyon</label><input class="px-3 py-2 rounded-lg border border-outline-variant/50 focus:border-secondary focus:ring-1 focus:ring-secondary/50 outline-none" name="title" required placeholder="Örn. UI Developer Intern" /></div>
+          <div class="flex flex-col gap-2"><label class="font-label-bold text-on-surface-variant">Konum</label><input class="px-3 py-2 rounded-lg border border-outline-variant/50 focus:border-secondary focus:ring-1 focus:ring-secondary/50 outline-none" name="location" required placeholder="Istanbul, Hibrit" /></div>
+          <div class="flex flex-col gap-2"><label class="font-label-bold text-on-surface-variant">Departman</label><select class="px-3 py-2 rounded-lg border border-outline-variant/50 focus:border-secondary focus:ring-1 focus:ring-secondary/50 outline-none" name="department">${selectOptions(["Yazılım", "Tasarım", "Veri", "Pazarlama"], "Yazılım")}</select></div>
+          <div class="flex flex-col gap-2"><label class="font-label-bold text-on-surface-variant">Durum</label><select class="px-3 py-2 rounded-lg border border-outline-variant/50 focus:border-secondary focus:ring-1 focus:ring-secondary/50 outline-none" name="status">${selectOptions(["Yayında", "Taslak"], "Yayında")}</select></div>
+          <button class="md:col-span-2 mt-2 flex justify-center items-center gap-2 py-3 bg-primary text-on-primary rounded-lg font-button hover:bg-primary/90 transition-colors" type="submit">${icon("add")}İlanı ekle</button>
+        </form>
+      </section>
+      <section>
+        <div class="mb-md">
+          <h2 class="font-h3 text-xl text-on-surface">İlanlar</h2>
+          <p class="text-sm text-on-surface-variant">${user.institution || user.name} hesabındaki açık pozisyonlar.</p>
+        </div>
+        <div class="flex flex-col gap-md">
+          ${state.companyJobs.map((job) => `
+            <article class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/30 flex items-center justify-between gap-4">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 shrink-0 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface">
+                  ${icon("business_center")}
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-button text-on-surface">${job.title}</h3>
+                  <p class="font-body-sm text-on-surface-variant">${job.location} · ${job.department}</p>
+                  <div class="flex gap-2 mt-1">
+                    <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-label-bold bg-surface-container text-on-surface-variant">${job.status}</span>
+                    <span class="inline-flex items-center px-2 py-1 rounded-md text-[11px] font-label-bold bg-surface-container-high text-on-surface-variant">${job.applicants} aday</span>
+                  </div>
+                </div>
+              </div>
+              <button class="flex items-center gap-1 px-3 py-2 rounded-lg font-button text-sm bg-error-container text-on-error-container hover:bg-error hover:text-on-error transition-colors" data-action="job-remove" data-id="${job.id}">
+                ${icon("delete")} Kaldır
+              </button>
     </section>
   `;
 }

@@ -112,7 +112,7 @@ const initialState = {
     {
       email: "demo@pathmatch.app",
       password: "demo123",
-      name: "Inci Mercan",
+      name: "Sidal Polat",
       role: "student",
       institution: "Istanbul Teknik Üniversitesi",
       title: "Frontend Developer adayı",
@@ -164,7 +164,13 @@ function loadState() {
   try {
     const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (stored && Array.isArray(stored.users)) {
-      return { ...clone(initialState), ...stored };
+      const next = { ...clone(initialState), ...stored };
+      next.users = next.users.map((user) => (
+        user.email === "demo@pathmatch.app" && user.name === "Inci Mercan"
+          ? { ...user, name: "Sidal Polat" }
+          : user
+      ));
+      return next;
     }
   } catch (error) {
     console.warn("State could not be loaded", error);
@@ -256,18 +262,32 @@ function navItems(user) {
   ];
 }
 
+function mobileNavItems(user) {
+  if (user?.role === "company") return navItems(user);
+
+  return [
+    ["/dashboard", "dashboard", "Panel"],
+    ["/matches", "travel_explore", "Eşleş"],
+    ["/applications", "assignment", "Başvuru"],
+    ["/roadmap", "route", "Yol"],
+    ["/messages", "chat", "Mesaj"],
+    ["/profile", "person", "Profil"]
+  ];
+}
+
 function appShell(content, options = {}) {
   const { hideTopbar = false } = options;
   const user = currentUser();
   const active = route();
   const nav = navItems(user);
+  const mobileNavList = mobileNavItems(user);
   const desktopNav = user
     ? nav.map(([path, ico, label]) => `<a class="nav-link ${active.startsWith(path) ? "active" : ""}" href="#${path}">${icon(ico)}${label}</a>`).join("")
     : `<a class="nav-link ${active === "/" ? "active" : ""}" href="#/">${icon("home")}Ana Sayfa</a>
        <a class="nav-link ${active === "/matches" ? "active" : ""}" href="#/matches">${icon("travel_explore")}Fırsatlar</a>`;
 
   const mobileNav = user
-    ? `<nav class="mobile-tabs">${nav.slice(0, 5).map(([path, ico, label]) => `<a class="${active.startsWith(path) ? "active" : ""}" href="#${path}">${icon(ico)}<span>${label}</span></a>`).join("")}</nav>`
+    ? `<nav class="mobile-tabs mobile-tabs--${mobileNavList.length}">${mobileNavList.map(([path, ico, label]) => `<a class="${active.startsWith(path) ? "active" : ""}" href="#${path}">${icon(ico)}<span>${label}</span></a>`).join("")}</nav>`
     : "";
 
   return `
@@ -355,6 +375,7 @@ function protectedLayout(inner) {
 
 function renderLanding() {
   const user = currentUser();
+  const homePath = user?.role === "company" ? "/company" : "/dashboard";
   const content = `
     <main class="page">
       <section class="hero">
@@ -363,7 +384,7 @@ function renderLanding() {
           <h1>Kariyerine en uygun staj ve iş fırsatlarını keşfet</h1>
           <p class="lead">PathMatch, profilindeki yetenekleri gerçek ilanlarla eşleştirir, başvuru sürecini takip eder ve yol haritanı tek yerde düzenler.</p>
           <div class="hero-actions">
-            ${user ? `<a class="btn btn-primary" href="#/dashboard">${icon("dashboard")}Panele geç</a>` : `<button class="btn btn-primary" data-action="login-demo">${icon("bolt")}Demo ile başla</button>`}
+            ${user ? `<a class="btn btn-primary" href="#${homePath}">${icon("dashboard")}Panele geç</a>` : `<button class="btn btn-primary" data-action="login-demo">${icon("bolt")}Demo ile başla</button>`}
             <a class="btn btn-secondary" href="#/matches">${icon("travel_explore")}Fırsatları gör</a>
             <a class="btn btn-ghost" href="#/register">${icon("person_add")}Hesap oluştur</a>
           </div>
@@ -394,6 +415,33 @@ function renderLanding() {
           ${opportunities.slice(0, 3).map((item) => opportunityCard(item, true)).join("")}
         </div>
       </section>
+      <footer class="site-footer">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="#/">
+              <span class="brand-mark">PM</span>
+              <span class="brand-text"><strong>PathMatch</strong><span>Smart Career Platform</span></span>
+            </a>
+            <p>Yeteneklerini sakin, net ve hızlı bir akışla doğru fırsatlarla buluştur.</p>
+          </div>
+          <div class="footer-links">
+            <strong>Keşfet</strong>
+            <a href="#/matches">Fırsatlar</a>
+            <a href="#/register">Hesap oluştur</a>
+            <a href="#/login">Giriş yap</a>
+          </div>
+          <div class="footer-links">
+            <strong>Demo</strong>
+            <span>Sidal Polat</span>
+            <span>demo@pathmatch.app</span>
+            <span>demo123</span>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <span>GitHub Pages üzerinde çalışan demo deneyimi</span>
+          <span>PathMatch Smart Career Platform</span>
+        </div>
+      </footer>
     </main>
   `;
   return appShell(content);
@@ -429,7 +477,7 @@ function renderAuth(mode) {
           <p class="muted">${isRegister ? "Rolünü seç ve hesabını oluştur." : "Demo hesabı veya kendi hesabınla devam et."}</p>
         </div>
         <form data-form="${isRegister ? "register" : "login"}" class="grid">
-          ${isRegister ? `<div class="field"><label>Ad Soyad veya Şirket</label><input name="name" required placeholder="Örn. Inci Mercan" /></div>` : ""}
+          ${isRegister ? `<div class="field"><label>Ad Soyad veya Şirket</label><input name="name" required placeholder="Örn. Sidal Polat" /></div>` : ""}
           <div class="field"><label>E-posta</label><input name="email" type="email" required value="${isRegister ? "" : "demo@pathmatch.app"}" /></div>
           <div class="field"><label>Şifre</label><input name="password" type="password" required value="${isRegister ? "" : "demo123"}" /></div>
           ${isRegister ? `

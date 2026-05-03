@@ -288,79 +288,84 @@ function mobileNavItems(user) {
   ];
 }
 
-function appShell(content, options = {}) {
-  const { hideTopbar = false } = options;
-  const user = currentUser();
-  const active = route();
-  const nav = navItems(user);
-  const mobileNavList = mobileNavItems(user);
-  const desktopNav = user
-    ? nav.map(([path, ico, label]) => `<a class="nav-link ${active.startsWith(path) ? "active" : ""}" href="#${path}">${icon(ico)}${label}</a>`).join("")
-    : `<a class="nav-link ${active === "/" ? "active" : ""}" href="#/">${icon("home")}Ana Sayfa</a>
-       <a class="nav-link ${active === "/matches" ? "active" : ""}" href="#/matches">${icon("travel_explore")}Fırsatlar</a>`;
 
-  const mobileNav = user
-    ? `<nav class="mobile-tabs mobile-tabs--${mobileNavList.length}">${mobileNavList.map(([path, ico, label]) => `<a class="${active.startsWith(path) ? "active" : ""}" href="#${path}">${icon(ico)}<span>${label}</span></a>`).join("")}</nav>`
-    : "";
+  
+  function appShell(content, options = {}) {
+    const user = currentUser();
+    
+    if (!user) {
+        return `
+        <div class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col overflow-x-hidden">
+            <header class="sticky top-0 z-50 flex items-center justify-between px-lg py-md bg-surface-bright/80 backdrop-blur-md border-b border-outline-variant/30">
+                <a href="#/" class="flex items-center gap-2">
+                    <h1 class="font-h3 text-h3 text-primary tracking-tight">PathMatch</h1>
+                </a>
+                <nav class="hidden md:flex items-center gap-lg">
+                    <a href="#/login" class="font-button text-button text-on-surface-variant hover:text-primary transition-colors">Giriş Yap</a>
+                    <a href="#/register" class="py-sm px-lg bg-primary text-on-primary rounded-full font-button text-button hover:opacity-90 transition-opacity">Kayıt Ol</a>
+                </nav>
+            </header>
+            <main class="flex-1">
+                ${content}
+            </main>
+        </div>`;
+    }
+    
+    return `
+    <div class="bg-background text-on-background font-body-md antialiased min-h-screen flex overflow-hidden">
+        ${sidebar(user)}
+        <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-surface relative">
+             <header class="sticky top-0 z-30 flex justify-between items-center w-full px-lg py-sm bg-surface-bright/80 backdrop-blur-md border-b border-outline-variant/20">
+                 <button class="md:hidden text-on-background p-2"><span class="material-symbols-outlined">menu</span></button>
+                 <div class="flex items-center gap-4 ml-auto">
+                     <div class="flex items-center gap-3 bg-surface-container-lowest py-1 px-3 rounded-full border border-outline-variant/30 cursor-pointer hover:bg-surface-container/50 transition-colors">
+                         <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-button text-sm">${initials(user.name)}</div>
+                         <div class="hidden md:block text-left"><p class="font-label-bold text-label-bold text-on-surface leading-none">${user.name}</p></div>
+                     </div>
+                 </div>
+             </header>
+             <div class="p-lg md:p-xl space-y-xl max-w-[1400px] w-full mx-auto">
+                ${content}
+             </div>
+        </main>
+    </div>`;
+  }
 
-  return `
-    <div class="app-shell${hideTopbar ? " app-shell--sidebar" : ""}">
-      ${hideTopbar ? "" : `
-      <header class="topbar">
-        <div class="topbar-inner">
-          <a class="brand" href="#/">
-            <span class="brand-mark">PM</span>
-            <span class="brand-text"><strong>PathMatch</strong><span>Smart Career Platform</span></span>
-          </a>
-          <nav class="main-nav" aria-label="Ana menü">${desktopNav}</nav>
-          <div class="top-actions">
-            ${user ? `
-              <button class="btn btn-ghost btn-small hide-sm" data-action="demo-reset">${icon("restart_alt")}Demo sıfırla</button>
-              <button class="btn btn-primary btn-small" data-action="logout">${icon("logout")}Çıkış</button>
-            ` : `
-              <a class="btn btn-ghost btn-small hide-sm" href="#/login">${icon("login")}Giriş</a>
-              <a class="btn btn-primary btn-small" href="#/register">${icon("person_add")}Kayıt</a>
-            `}
+  
+  function sidebar(user) {
+    const active = route();
+    const nav = navItems(user);
+    const homePath = user.role === "company" ? "/company" : "/dashboard";
+    
+    return `
+      <aside class="hidden md:flex flex-col h-screen w-64 border-r border-outline-variant/30 sticky top-0 bg-surface-bright/80 backdrop-blur-lg p-4 space-y-2 shrink-0 z-40">
+          <div class="mb-8 px-2 pt-2">
+              <a href="#${homePath}"><h1 class="font-h3 text-h3 text-primary tracking-tighter">PathMatch</h1></a>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">${roleLabel(user.role)} Çalışma Alanı</p>
           </div>
-        </div>
-      </header>`}
-      ${content}
-      ${mobileNav}
-    </div>
-  `;
-}
+          <nav class="flex-1 space-y-1">
+              ${nav.map(([path, ico, label]) => `
+                  <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-transform duration-200 ${active.startsWith(path) ? 'bg-surface-container-lowest text-secondary shadow-sm border border-outline-variant/30' : 'text-on-surface-variant hover:bg-surface-container/50'}" href="#${path}">
+                      <span class="material-symbols-outlined">${ico}</span>
+                      <span class="font-button text-button">${label}</span>
+                  </a>
+              `).join('')}
+          </nav>
+          <div class="mt-auto space-y-1 pb-4 border-t border-outline-variant/30 pt-4">
+              <button data-action="demo-reset" class="flex items-center w-full gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container/50 rounded-lg transition-transform duration-200">
+                  <span class="material-symbols-outlined">restart_alt</span>
+                  <span class="font-button text-button">Demo Sıfırla</span>
+              </button>
+              <button data-action="logout" class="flex items-center w-full gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container/50 rounded-lg transition-transform duration-200">
+                  <span class="material-symbols-outlined">logout</span>
+                  <span class="font-button text-button">Çıkış</span>
+              </button>
+          </div>
+      </aside>
+    `;
+  }
 
-function sidebar(user) {
-  const active = route();
-  const nav = navItems(user);
-  const homePath = user.role === "company" ? "/company" : "/dashboard";
-  return `
-    <aside class="sidebar">
-      <div class="sidebar-brand">
-        <a class="brand brand-sidebar" href="#${homePath}">
-          <span class="brand-mark">PM</span>
-          <span class="brand-text"><strong>PathMatch</strong><span>Çalışma alanı</span></span>
-        </a>
-      </div>
-      <div class="profile-mini">
-        <span class="avatar">${initials(user.name)}</span>
-        <div>
-          <strong>${user.name}</strong>
-          <span>${roleLabel(user.role)} · ${user.location || "Türkiye"}</span>
-        </div>
-      </div>
-      <nav class="side-nav" aria-label="Panel menüsü">
-        ${nav.map(([path, ico, label]) => `<a class="${active.startsWith(path) ? "active" : ""}" href="#${path}">${icon(ico)}<span>${label}</span></a>`).join("")}
-      </nav>
-      <div class="sidebar-actions">
-        <button class="btn btn-ghost btn-small btn-full" data-action="demo-reset">${icon("restart_alt")}Demo sıfırla</button>
-        <button class="btn btn-primary btn-small btn-full" data-action="logout">${icon("logout")}Çıkış</button>
-      </div>
-    </aside>
-  `;
-}
-
-function protectedLayout(inner) {
+  function protectedLayout(inner) {
   const user = currentUser();
   if (!user) {
     return appShell(`
@@ -386,81 +391,49 @@ function protectedLayout(inner) {
   `, { hideTopbar: true });
 }
 
-function renderLanding() {
-  const user = currentUser();
-  const homePath = user?.role === "company" ? "/company" : "/dashboard";
-  const content = `
-    <main class="page">
-      <section class="hero">
-        <div class="hero-copy">
-          <span class="eyebrow">${icon("auto_awesome")}Akıllı eşleşme aktif</span>
-          <h1>Kariyerine en uygun staj ve iş fırsatlarını keşfet</h1>
-          <p class="lead">PathMatch, profilindeki yetenekleri gerçek ilanlarla eşleştirir, başvuru sürecini takip eder ve yol haritanı tek yerde düzenler.</p>
-          <div class="hero-actions">
-            ${user ? `<a class="btn btn-primary" href="#${homePath}">${icon("dashboard")}Panele geç</a>` : `<button class="btn btn-primary" data-action="login-demo">${icon("bolt")}Demo ile başla</button>`}
-            <a class="btn btn-secondary" href="#/matches">${icon("travel_explore")}Fırsatları gör</a>
-            <a class="btn btn-ghost" href="#/register">${icon("person_add")}Hesap oluştur</a>
-          </div>
-          <div class="hero-metrics">
-            <div class="metric"><strong>96%</strong><span>En yüksek eşleşme skoru</span></div>
-            <div class="metric"><strong>5</strong><span>Aktif fırsat ve program</span></div>
-            <div class="metric"><strong>2</strong><span>Takip edilen başvuru</span></div>
-          </div>
-        </div>
-        <div class="hero-panel">
-          <div class="panel-visual">
-            <div class="floating-score"><strong>96%</strong><span>Eşleşme oranı</span></div>
-          </div>
-          <div class="panel-body">
-            ${opportunities.slice(0, 3).map(matchStrip).join("")}
-          </div>
-        </div>
-      </section>
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <h2>Öne çıkan fırsatlar</h2>
-            <p>Başvuru butonları, kayıt/giriş sonrası sürece bağlanır.</p>
-          </div>
-          <a class="btn btn-ghost btn-small" href="#/matches">${icon("arrow_forward")}Tümünü gör</a>
-        </div>
-        <div class="grid grid-3">
-          ${opportunities.slice(0, 3).map((item) => opportunityCard(item, true)).join("")}
-        </div>
-      </section>
-      <footer class="site-footer">
-        <div class="footer-grid">
-          <div class="footer-brand">
-            <a class="brand" href="#/">
-              <span class="brand-mark">PM</span>
-              <span class="brand-text"><strong>PathMatch</strong><span>Smart Career Platform</span></span>
-            </a>
-            <p>Yeteneklerini sakin, net ve hızlı bir akışla doğru fırsatlarla buluştur.</p>
-          </div>
-          <div class="footer-links">
-            <strong>Keşfet</strong>
-            <a href="#/matches">Fırsatlar</a>
-            <a href="#/register">Hesap oluştur</a>
-            <a href="#/login">Giriş yap</a>
-          </div>
-          <div class="footer-links">
-            <strong>Demo</strong>
-            <span>Sidal Polat</span>
-            <span>demo@pathmatch.app</span>
-            <span>demo123</span>
-          </div>
-        </div>
-        <div class="footer-meta">
-          <span>GitHub Pages üzerinde çalışan demo deneyimi</span>
-          <span>PathMatch Smart Career Platform</span>
-        </div>
-      </footer>
-    </main>
-  `;
-  return appShell(content);
-}
 
-function matchStrip(item) {
+  function renderLanding() {
+    return appShell(`
+      <section class="relative pt-3xl pb-xl md:pt-120px md:pb-3xl overflow-hidden min-h-[80vh] flex flex-col justify-center items-center">
+          <div class="px-lg md:px-2xl max-w-[1400px] w-full mx-auto relative z-10">
+              <div class="flex flex-col items-center text-center max-w-3xl mx-auto space-y-lg md:space-y-xl">
+                  <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-fixed-dim/20 text-on-secondary-fixed-variant border border-secondary-fixed-dim/30">
+                      <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                      <span class="font-label-bold text-label-bold uppercase tracking-wider text-xs">YENİ NESİL KARİYER PLATFORMU</span>
+                  </div>
+                  <h1 class="font-h1 text-h1 text-on-surface tracking-tighter leading-tight">
+                      Geleceğini şansa değil,<br/>
+                      <span class="text-tertiary-container">Akıllı eşleşmeye</span> bırak.
+                  </h1>
+                  <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                      Öğrenciler ve yeni mezunlar için kişiselleştirilmiş staj ve iş fırsatları. Kurumlar için doğru yeteneğe ulaşmanın en hızlı ve veri odaklı yolu.
+                  </p>
+                  <div class="flex flex-col sm:flex-row items-center gap-4 pt-sm w-full sm:w-auto">
+                      <a href="#/register" class="w-full sm:w-auto px-xl py-4 bg-primary text-on-primary rounded-full font-button text-button shadow-lg shadow-primary/20 hover:-translate-y-1 transition-transform duration-300">
+                          Hemen Başla
+                      </a>
+                      <button data-action="demo-company" class="w-full sm:w-auto px-xl py-4 bg-surface-container-lowest text-on-surface border-2 border-outline-variant/30 rounded-full font-button text-button hover:bg-surface-container/50 transition-colors">
+                          İşveren Görünümü
+                      </button>
+                  </div>
+                  <div class="pt-xl flex gap-xl justify-center items-center opacity-70 flex-wrap">
+                      <div class="flex flex-col">
+                          <span class="font-h3 text-h3 text-primary">%${state.stats.successRate}</span>
+                          <span class="font-body-sm text-body-sm">Başarı Oranı</span>
+                      </div>
+                      <div class="w-px h-8 bg-outline-variant"></div>
+                      <div class="flex flex-col">
+                          <span class="font-h3 text-h3 text-primary">${state.stats.activeStudents}+</span>
+                          <span class="font-body-sm text-body-sm">Aktif Öğrenci</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+    `, { hideTopbar: false });
+  }
+
+  function matchStrip(item) {
   return `
     <div class="match-strip">
       <span class="logo-tile">${item.company.slice(0, 2).toUpperCase()}</span>

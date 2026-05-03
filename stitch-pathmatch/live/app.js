@@ -418,12 +418,12 @@ function mobileNavItems(user) {
                   </div>
                   <div class="pt-xl flex gap-xl justify-center items-center opacity-70 flex-wrap">
                       <div class="flex flex-col">
-                          <span class="font-h3 text-h3 text-primary">%${state.stats.successRate}</span>
+                          <span class="font-h3 text-h3 text-primary">%94</span>
                           <span class="font-body-sm text-body-sm">Başarı Oranı</span>
                       </div>
                       <div class="w-px h-8 bg-outline-variant"></div>
                       <div class="flex flex-col">
-                          <span class="font-h3 text-h3 text-primary">${state.stats.activeStudents}+</span>
+                          <span class="font-h3 text-h3 text-primary">12.000+</span>
                           <span class="font-body-sm text-body-sm">Aktif Öğrenci</span>
                       </div>
                   </div>
